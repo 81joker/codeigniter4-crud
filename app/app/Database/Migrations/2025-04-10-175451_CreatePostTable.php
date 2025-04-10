@@ -8,11 +8,27 @@ class CreatePostTable extends Migration
 {
     public function up()
     {
-        //
+        $this->forge->addField([
+            'id' => [
+                'type'           => 'INT',
+                'constraint'     => 5,
+                'unsigned'       => true,
+                'auto_increment' => true,
+            ],
+            'title' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'body' => [
+                'type' => 'TEXT',
+            ],
+        ]);
+        $this->forge->addKey('id', true);
+        $this->forge->createTable('posts');
     }
 
     public function down()
     {
-        //
+        $this->forge->dropTable('posts');
     }
 }
