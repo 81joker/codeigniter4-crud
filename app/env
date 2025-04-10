@@ -15,6 +15,14 @@
 #--------------------------------------------------------------------
 
 # CI_ENVIRONMENT = production
+CI_ENVIRONMENT = development
+app.baseURL = 'http://localhost:8000/'
+
+database.default.hostname = db
+database.default.database = ci4
+database.default.username = ci4_user
+database.default.password = ci4_password
+database.default.DBDriver = MySQLi
 
 #--------------------------------------------------------------------
 # APP

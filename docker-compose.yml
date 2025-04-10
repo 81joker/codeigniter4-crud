@@ -36,6 +36,20 @@ services:
         networks:
             - app-network
 
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_HOST: db
+            PMA_PORT: 3306
+            PMA_USER: root
+            PMA_PASSWORD: root_password
+        ports:
+            - "8080:80"
+        networks:
+            - app-network
+        depends_on:
+            - db
+
 volumes:
     mysqldata:
 
