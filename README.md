@@ -1,28 +1,36 @@
+# CodeIgniter 4 Project
 
-1-    docker build -t optionname:php81 -f php/Dockerfile . 
-    -t => Option name 
-    -f => find the folder 
-    
-2- docker images
+## Setup Instructions
 
-3- docker compose up -d 
-    Show me whats is inside container
+1. **Install Dependencies**
+   ```bash
+   cd app
+   composer install
+   ```
 
-4- docker ps 
-    show all actived image and name images
+2. **Start Docker Containers**
+   ```bash
+   docker-compose up --build -d
+   ```
 
-5- docker exec -it docker-php-web-1 sh 
-   cat /etc/nginx/conf.d/default.conf
+3. **Access Application Container**
+   ```bash
+   docker exec -it app bash
+   ```
 
-exec -> excute command in container 
--it  -> i(intractive in my container ) ,
-T (giv in terminmal or mcke interminal !!???)
-docker-php_web_1 -> name of image 
-sh  ->excute command in shell 
+4. **Run Development Server**
+   ```bash
+   php spark serve
+   ```
 
-6- docker compose down 
+## Troubleshooting Database Connections
 
-7- docker exec -it namefile sh 
-    to show the path dirctory
+If you encounter MySQL connection issues, you can use the database test file located at `public/test_db.php` to verify your connection.
 
-8- docker composer up --build -d
+This test file attempts to connect using the following environment variables (or defaults if not set):
+- Hostname: `database.default.hostname` (default: 'db')
+- Username: `database.default.username` (default: 'ci4_user')
+- Password: `database.default.password` (default: 'ci4_password')
+- Database: `database.default.database` (default: 'ci4')
+
+The test script will display connection status and parameters used for debugging.
