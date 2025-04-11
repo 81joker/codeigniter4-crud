@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use App\Models\PostModel;
 
 class UserModel extends Model
 {
@@ -61,9 +62,9 @@ class UserModel extends Model
     protected $afterDelete    = [];
 
 
-    // public function posts()
-    // {
-    //     return $this->hasMany(PostModel::class , 'user_id');
-    // }
+    public function posts()
+    {
+        return $this->hasMany(PostModel::class , 'user_id');
+    }
 
 }

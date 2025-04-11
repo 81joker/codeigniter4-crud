@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         
         for ($i = 0; $i < 10; $i++) {
             $builder->insert([
+                'id'        => $i,
                 'firstname' => 'Firstname' . $i,
                 'lastname'  => 'Lastname' . $i,
                 'email'     => 'user' . $i . '@example.com',
