@@ -11,11 +11,71 @@ class UserController extends BaseController
 {
     public function index()
     {
-        $model = new UserModel();
-        $users = $model->findAll();
-        return view('users/index', ['users' => $users]);
+
+     
+            // $search = $this->request->getGet('search');
+             $model = new UserModel();
+            $usersFetch =  $model->findAll();
+
+            // $query = $model->builder()->where('firstname', 'like', "%{$search}%");
+            // // dd($query);
+            // // Only perform search if a term was provided
+            // if (!empty($search)) {
+            //     $data['searchResults'] = $model
+            //         ->groupStart()
+            //             ->like('firstname', $search)
+            //             ->orLike('email', $search)
+            //         ->groupEnd()
+            //         ->findAll();
+            // }
+            $data = [
+                'users' => $model->paginate(2),
+                'pager' => $model->pager,
+            ];
+            return view('users/index', ['users' => $data]);
+
+        // $search = $this->request->getGet('search');
+        // $model = new UserModel();
+        // $usersSearch = $model->like('firstname', $search)->orLike('email', $search)->findAll();
+        // $data = [
+        //     'users' => $model->findAll(), // 10 items per page
+        //     // 'pager' => $model->pager,
+        //     'search' => $usersSearch
+
+        // ];
+        // $data = [
+        //     'users' => $model->paginate(10), // 10 items per page
+        //     'pager' => $model->pager,
+        //     'search' => $search
+        // ];
         
+        // if (!empty($search)) {
+        //     $model->groupStart()
+        //           ->like('name', $search)
+        //           ->orLike('email', $search)
+        //           ->groupEnd();
+        // }
+  ;
+        
+
     }
+    // public function index()
+    // {
+
+    //     $search = request('search', '');
+    //     $model = new UserModel();
+    //     $query = $model->builder();
+    //     dd($query);
+    //         // ->where('title', 'like', "%{$search}%")
+    //         // ->orderBy($sortField, $sortDirection)
+    //         // ->paginate($perPage);
+
+    //     // return ProductListResource::collection($query);
+    //     // $model = new UserModel();
+    //     // $users = $model->findAll();
+    //     // return view('users/index', ['users' => $users]);
+        
+    // }
 
     public function create(){
         return view('users/create');
