@@ -16,6 +16,8 @@ class CreateUserTable extends Migration
             'state'       => ['type' => 'TINYINT', 'default' => 0],
             'created_at'  => ['type' => 'DATETIME', 'null' => true],
             'updated_at'  => ['type' => 'DATETIME', 'null' => true],
+
+            // 'state'      => ['type' => 'INT', 'constraint' => 1],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('users');

@@ -12,7 +12,7 @@ class UserModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['id', 'firstname', 'lastname', 'email', 'state', 'created_at', 'updated_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -28,8 +28,24 @@ class UserModel extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
+    protected $validationRules      = [
+        'id'    => 'max_length[19]|is_natural_no_zero',
+        'firstname' => 'required|min_length[2]|max_length[100]',
+        'lastname'  => 'required|min_length[2]|max_length[100]',
+        'email'     => 'required|valid_email|is_unique[users.email,id,{id}]',
+    ];
+    protected $validationMessages   = [
+        'firstname' => [
+            'required'    => 'الاسم الأول مطلوب',
+            'min_length'  => 'الاسم الأول يجب أن يحتوي على حرفين على الأقل',
+        ],
+        'email' => [
+            'required'     => 'البريد الإلكتروني مطلوب',
+            'valid_email'  => 'صيغة البريد غير صحيحة',
+            'is_unique'    => 'هذا البريد مسجل بالفعل',
+        ],
+    ];
+
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
@@ -43,4 +59,11 @@ class UserModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+
+    // public function posts()
+    // {
+    //     return $this->hasMany(PostModel::class , 'user_id');
+    // }
+
 }
