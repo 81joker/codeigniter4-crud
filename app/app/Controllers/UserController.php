@@ -55,18 +55,35 @@ class UserController extends BaseController
     {
         // var_dump($this->request->getPost());
         $model = new UserModel();
-        $model->save([
-            'title' => $this->request->getPost('title'),
-            'body' => $this->request->getPost('body')
-        ]);
-        return redirect()->to('/users')->with('success', 'Post created successfully');
+        $data = [
+            'firstname' => $this->request->getPost('firstname'),
+            'lastname'  => $this->request->getPost('lastname'),
+            'email'     => $this->request->getPost('email')
+        ];
+        // if ($id = $this->request->getPost('id')) {
+        //     $data['id'] = $id;
+        // }
+        if (!$model->save($data)) {
+            // Validation failed
+            return redirect()->back()
+                ->with('errors', $model->errors())
+                ->withInput();
+        }    
+        return redirect()->to('/users')
+        ->with('message', 'User saved successfully');
+        // $model->save([
+        //     'firstname' => $this->request->getPost('firstname'),
+        //     'lastname' => $this->request->getPost('lastname'),
+        //     'email' => $this->request->getPost('email'),
+        // ]);
+        
+        // return redirect()->to('/users')->with('success', 'Post created successfully');
     }
 
     public function edit($id)
     {
-        var_dump($id);
         $model = new UserModel();
-        $data['post'] = $model->find($id);
+        $data['user'] = $model->find($id);
         return view('users/edit', $data);
     }
 
@@ -74,17 +91,16 @@ class UserController extends BaseController
     {
         $model = new UserModel();
         $model->update($id, [
-            'title' => $this->request->getPost('title'),
-            'body' => $this->request->getPost('body')
+            'firstname' => $this->request->getPost('firstname'),
         ]);
-        return redirect()->to('/users')->with('success', 'Post updated successfully');
+        return redirect()->to('/users')->with('success', 'User updated successfully');
     }
 
     public function delete($id)
     {
         $model = new UserModel();
         $model->delete($id);
-        return redirect()->to('/users')->with('success', 'Post deleted successfully');
+        return redirect()->to('/users')->with('success', 'User deleted successfully');
 
     }
 
