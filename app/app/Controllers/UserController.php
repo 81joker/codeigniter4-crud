@@ -11,41 +11,43 @@ class UserController extends BaseController
 {
     public function index(){
 
-        // Get request parameters with defaults
-        $perPage = $this->request->getGet('per_page') ?? 10;
-        $search = $this->request->getGet('search') ?? '';
-        $sortField = $this->request->getGet('sort_field') ?? 'updated_at';
-        $sortDirection = $this->request->getGet('sort_direction') ?? 'DESC';
-
-        // Validate sort direction
-        $sortDirection = strtoupper($sortDirection) === 'ASC' ? 'ASC' : 'DESC';
-
-        // Build the query
-        $userModel = new UserModel();
-        $query = $userModel;
-
-        if (!empty($search)) {
-            // $query = $query->like('firstname', $search);
-            $query = $query->groupStart() // Start a group for OR conditions
-            ->like('firstname', $search)
-            ->orLike('lastname', $search)
-            ->orLike('email', $search)
-        ->groupEnd(); 
+    
+            // Get request parameters with defaults
+            $perPage = $this->request->getGet('per_page') ?? 10;
+            $search = $this->request->getGet('search') ?? '';
+            $sortField = $this->request->getGet('sort_field') ?? 'updated_at';
+            $sortDirection = $this->request->getGet('sort_direction') ?? 'DESC';
+        
+            // Validate sort direction
+            $sortDirection = strtoupper($sortDirection) === 'ASC' ? 'ASC' : 'DESC';
+        
+            // Build the query
+            $userModel = new UserModel();
+            $query = $userModel;
+        
+            if (!empty($search)) {
+                $query = $query->groupStart()
+                    ->like('firstname', $search)
+                    ->orLike('lastname', $search)
+                    ->orLike('email', $search)
+                ->groupEnd(); 
+            }
+        
+            // Apply sorting
+            $query = $query->orderBy($sortField, $sortDirection);
+        
+            // Get paginated results
+            $data = [
+                'users' => $query->paginate($perPage),
+                'pager' => $userModel->pager,
+                'search' => $search,
+                'sortField' => $sortField,
+                'sortDirection' => $sortDirection
+            ];
+        
+            return view('users/index', ['users' => $data]);
         }
 
-        // Apply sorting
-        $query = $query->orderBy($sortField, $sortDirection);
-
-        // Get paginated results
-        $data['users'] = $query->paginate($perPage);
-        $data['pager'] = $userModel->pager;
-
-        // For API responses, you might want to return JSON
-        //  return $this->response->setJSON($data);
-         return view('users/index', ['users' => $data]);
-
-
-    }
    
     public function create(){
         return view('users/create');
