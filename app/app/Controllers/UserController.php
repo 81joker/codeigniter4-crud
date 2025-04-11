@@ -9,74 +9,44 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class UserController extends BaseController
 {
-    public function index()
-    {
+    public function index(){
 
-     
-            // $search = $this->request->getGet('search');
-             $model = new UserModel();
-            $usersFetch =  $model->findAll();
+        // Get request parameters with defaults
+        $perPage = $this->request->getGet('per_page') ?? 10;
+        $search = $this->request->getGet('search') ?? '';
+        $sortField = $this->request->getGet('sort_field') ?? 'updated_at';
+        $sortDirection = $this->request->getGet('sort_direction') ?? 'DESC';
 
-            // $query = $model->builder()->where('firstname', 'like', "%{$search}%");
-            // // dd($query);
-            // // Only perform search if a term was provided
-            // if (!empty($search)) {
-            //     $data['searchResults'] = $model
-            //         ->groupStart()
-            //             ->like('firstname', $search)
-            //             ->orLike('email', $search)
-            //         ->groupEnd()
-            //         ->findAll();
-            // }
-            $data = [
-                'users' => $model->paginate(2),
-                'pager' => $model->pager,
-            ];
-            return view('users/index', ['users' => $data]);
+        // Validate sort direction
+        $sortDirection = strtoupper($sortDirection) === 'ASC' ? 'ASC' : 'DESC';
 
-        // $search = $this->request->getGet('search');
-        // $model = new UserModel();
-        // $usersSearch = $model->like('firstname', $search)->orLike('email', $search)->findAll();
-        // $data = [
-        //     'users' => $model->findAll(), // 10 items per page
-        //     // 'pager' => $model->pager,
-        //     'search' => $usersSearch
+        // Build the query
+        $userModel = new UserModel();
+        $query = $userModel;
 
-        // ];
-        // $data = [
-        //     'users' => $model->paginate(10), // 10 items per page
-        //     'pager' => $model->pager,
-        //     'search' => $search
-        // ];
-        
-        // if (!empty($search)) {
-        //     $model->groupStart()
-        //           ->like('name', $search)
-        //           ->orLike('email', $search)
-        //           ->groupEnd();
-        // }
-  ;
-        
+        if (!empty($search)) {
+            // $query = $query->like('firstname', $search);
+            $query = $query->groupStart() // Start a group for OR conditions
+            ->like('firstname', $search)
+            ->orLike('lastname', $search)
+            ->orLike('email', $search)
+        ->groupEnd(); 
+        }
+
+        // Apply sorting
+        $query = $query->orderBy($sortField, $sortDirection);
+
+        // Get paginated results
+        $data['users'] = $query->paginate($perPage);
+        $data['pager'] = $userModel->pager;
+
+        // For API responses, you might want to return JSON
+        //  return $this->response->setJSON($data);
+         return view('users/index', ['users' => $data]);
+
 
     }
-    // public function index()
-    // {
-
-    //     $search = request('search', '');
-    //     $model = new UserModel();
-    //     $query = $model->builder();
-    //     dd($query);
-    //         // ->where('title', 'like', "%{$search}%")
-    //         // ->orderBy($sortField, $sortDirection)
-    //         // ->paginate($perPage);
-
-    //     // return ProductListResource::collection($query);
-    //     // $model = new UserModel();
-    //     // $users = $model->findAll();
-    //     // return view('users/index', ['users' => $users]);
-        
-    // }
-
+   
     public function create(){
         return view('users/create');
     }
@@ -94,6 +64,7 @@ class UserController extends BaseController
 
     public function edit($id)
     {
+        var_dump($id);
         $model = new UserModel();
         $data['post'] = $model->find($id);
         return view('users/edit', $data);

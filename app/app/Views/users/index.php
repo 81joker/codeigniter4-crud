@@ -52,7 +52,10 @@
 
 
     </table>
+    <div class="pagination">
     <?= $users['pager']->links() ?>
+    </div>
+    
 
 </div>
 
