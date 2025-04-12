@@ -13,11 +13,17 @@
 <?php endif ?>
 <div class="container mt-5">
     <h1>Create New Post</h1>
-    <form method="post" action="/users/store" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label class="form-label">Image</label>
-            <!-- <input type="file" name="avatar" class="form-control"  value="<?= old('avatar') ?>"> -->
-        </div>
+    <form method="post" action="/users/store"  enctype="multipart/form-data">
+    <div class="mb-3">
+        <label class="form-label">Avatar Image (required)</label>
+        <input type="file" name="avatar" class="form-control <?= session('errors.avatar') ? 'is-invalid' : '' ?>">
+        <?php if (session('errors.avatar')): ?>
+            <div class="invalid-feedback">
+                <?= session('errors.avatar') ?>
+            </div>
+        <?php endif ?>
+        <small class="text-muted">Max 1MB, JPG/PNG/GIF only</small>
+    </div>
         <div class="mb-3">
             <label class="form-label">First Name</label>
             <input type="text" name="firstname" class="form-control"  value="<?= old('firstname') ?>">

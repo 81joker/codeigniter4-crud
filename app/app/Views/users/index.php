@@ -5,7 +5,7 @@
 <div class="container mt-5">
     <h1>User Manager <?=  count($users['users']) ?></h1>
     <div class="row">
-        <div class="col-md-6"><a href="/user/create" class="btn btn-primary mb-3">New Task</a></div>
+        <div class="col-md-6"><a href="/user/create" class="btn btn-primary mb-3">New User</a></div>
         <div class="col-md-6">
             <form id="searchForm" action="/users" method="GET" class="position-relative">
                 <div class="input-group">
@@ -82,9 +82,9 @@
             <?php foreach ($users['users'] as $user): ?>
                 <tr class="text-center">
                     <?php  if (!    empty($user['avatar'])): ?>  
-                    <td><img src="<?= esc($user['avatar']) ?>" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td>
+                    <td class="w-25 h-25"><img src="<?= base_url(esc($user['avatar'])) ?>" class="img-thumbnail rounded-circle w-25"  alt="<?= esc($user['firstname']) ?>"></td>
                     <?php else : ?>
-                    <!-- <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td> -->
+                    <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td>
                     <?php endif; ?>
 
                     <td><?= esc($user['firstname']) ?></td>
