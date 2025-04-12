@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
 
-<div class="container mt-5">
+<div class="container">
     <h1>User Manager <?=  count($users['users']) ?></h1>
     <div class="row">
         <div class="col-md-6"><a href="/user/create" class="btn btn-primary mb-3">New User</a></div>
