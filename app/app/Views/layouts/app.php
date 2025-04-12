@@ -19,8 +19,6 @@
     </div>
 
     
-    <!-- HEADER: MENU + HEROE SECTION -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
     <script>
         document.getElementById('searchForm').addEventListener('submit', function () {
             document.getElementById('loadingSpinner').classList.remove('d-none');
@@ -30,5 +28,7 @@
         <p>Footer &copy; <?= date('Y') ?></p>
     </footer>
     <?php  echo view(name: 'layouts/footer'); ?>
+    <!-- HEADER: MENU + HEROE SECTION -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
 </body>
 </html>

@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 <div class="container mt-5">
-    <h1>Task Manager</h1>
+    <h1>User Manager <?=  count($users['users']) ?></h1>
     <div class="row">
         <div class="col-md-6"><a href="/user/create" class="btn btn-primary mb-3">New Task</a></div>
         <div class="col-md-6">
