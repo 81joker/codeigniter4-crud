@@ -17,6 +17,20 @@
                     <button type="submit" class="input-group-text btn btn-primary">Search</button>
                 </div>
 
+                <?php 
+                // TODO: display message in the user exists 
+                if (in_array($users['search'], $users['users'])){
+                     var_dump("Entra");
+                } else {
+                    var_dump("No entra");
+                }
+
+                ?>
+    
+                <?php if (!empty($users['search'])): ?>
+                    <p>Showing results for: "<?= esc($users['search']) ?>"</p>
+                <?php endif; ?>
+
                 <!-- ST Spinner -->
                 <div id="loadingSpinner"  class="spinner-border text-primary  position-absolute top-0 ms-3 d-none" role="status">
                   <span class="visually-hidden">Loading...</span>
@@ -31,10 +45,7 @@
             <?= session()->getFlashdata('success') ?>
         </div>
     <?php endif; ?>
-    
-    <?php if (!empty($users['search'])): ?>
-        <p>Showing results for: "<?= esc($users['search']) ?>"</p>
-    <?php endif; ?>
+
     
     <table class="table table-bordered">
         <thead>
