@@ -29,7 +29,8 @@ class PostSeeder extends Seeder
                 $random_user_id = 1;
             }
             $builder->insert([
-                'user_id'   => $random_user_id,
+                // 'user_id'   => $random_user_id,
+                'user_id'   => 1,
                 'title'    => 'Sample Post dolor' . $i,
                 'content'  => 'Lorem ipsum dolor sit amet, 
                 consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
