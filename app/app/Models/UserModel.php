@@ -13,7 +13,7 @@ class UserModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'firstname', 'lastname', 'email', 'state', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['id', 'firstname', 'lastname', 'avatar', 'email', 'state', 'created_at', 'updated_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -30,10 +30,11 @@ class UserModel extends Model
 
     // Validation
     protected $validationRules      = [
-        // 'id'    => 'max_length[19]|is_natural_no_zero',
+        'id'    => 'max_length[19]|is_natural_no_zero',
         'firstname' => 'required|min_length[2]|max_length[100]',
         'lastname'  => 'required|min_length[2]|max_length[100]',
         'email'     => 'required|valid_email|is_unique[users.email,id,{id}]',
+         'avatar'    => 'uploaded[avatar]|max_size[avatar,1024]|is_image[avatar]|mime_in[avatar,image/jpg,image/jpeg,image/png]'
     ];
     
     protected $validationMessages   = [
@@ -46,6 +47,12 @@ class UserModel extends Model
             'valid_email'  => 'صيغة البريد غير صحيحة',
             'is_unique'    => 'هذا البريد مسجل بالفعل',
         ],
+        'avatar' => [
+            'uploaded' => 'Please select an avatar image',
+            'max_size' => 'Avatar image size should not exceed 1MB',
+            'is_image' => 'Only image files are allowed',
+            'mime_in'  => 'Only JPG, JPEG, and PNG images are allowed'
+        ]
     ];
 
     protected $skipValidation       = false;

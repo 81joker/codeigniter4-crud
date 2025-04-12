@@ -33,6 +33,7 @@
     <table class="table table-bordered">
         <thead>
             <tr class="text-center">
+                <th>Avatar</th>
                 <th>
                     <a href="?sort_field=firstname&sort_direction=<?= ($users['sortField'] === 'firstname' && $users['sortDirection'] === 'ASC') ? 'DESC' : 'ASC' ?>&search=<?= esc($users['search'] ?? '') ?>">
                         First Name 
@@ -63,6 +64,12 @@
         <tbody>
             <?php foreach ($users['users'] as $user): ?>
                 <tr class="text-center">
+                    <?php  if (!    empty($user['avatar'])): ?>  
+                    <td><img src="<?= esc($user['avatar']) ?>" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td>
+                    <?php else : ?>
+                    <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td>
+                    <?php endif; ?>
+
                     <td><?= esc($user['firstname']) ?></td>
                     <td><?= esc($user['lastname']) ?></td>
                     <td><?= esc($user['email']) ?></td>
