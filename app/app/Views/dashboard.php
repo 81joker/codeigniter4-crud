@@ -10,8 +10,8 @@
         <div class="col-md-4 mb-4">
             <div class="card bg-white shadow rounded-2 d-flex align-items-center justify-content-center text-center">
                 <div class="card-body">
-                    <h5 class="card-title">Latest Users</h5>
-                    <h1 class="card-text">150</h1>
+                    <h5 class="card-title">Active Users</h5>
+                    <h1 class="card-text"><?= $activeUsers ?></h1>
                 </div>
             </div>
         </div>
