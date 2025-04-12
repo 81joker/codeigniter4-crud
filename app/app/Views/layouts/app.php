@@ -56,9 +56,10 @@
             </nav>
             
             <div class="container-fluid">
-                <!-- <div class="alert alert-primary" role="alert">
+                <div class="alert alert-primary" role="alert">
                     Welcome to your dashboard! Click the toggle button to show/hide the sidebar.
-                </div> -->
+                </div>
+           
                 
                 <main>
                 <?=  $this->renderSection('content');?>
@@ -77,9 +78,10 @@
 
 
     <script>
-        document.getElementById('searchForm').addEventListener('submit', function () {
-            document.getElementById('loadingSpinner').classList.remove('d-none');
-        });
+// Show loading spinner when form is submitted
+document.getElementById('searchInput').addEventListener('input', function () {
+        document.getElementById('loadingSpinner').classList.remove('d-none');
+    });
     </script>
  
 

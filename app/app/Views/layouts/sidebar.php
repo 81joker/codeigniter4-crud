@@ -2,7 +2,7 @@
         <!-- Sidebar -->
         <nav class="sidebar">
             <div class="sidebar-header p-3">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none">
+                <a href="<?php echo base_url('/') ?>" class="d-flex align-items-center text-white text-decoration-none">
                     <span class="fs-4">Admin Panel</span>
                 </a>
             </div>

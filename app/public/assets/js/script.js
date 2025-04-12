@@ -49,4 +49,5 @@ document.addEventListener('DOMContentLoaded', function() {
             wrapper.classList.remove('sidebar-collapsed');
         }
     });
+
 });
