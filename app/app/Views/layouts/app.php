@@ -21,5 +21,11 @@
         <p>Footer &copy; <?= date('Y') ?></p>
     </footer>
 <!-- HEADER: MENU + HEROE SECTION -->
+          
+<script>
+    document.getElementById('searchForm').addEventListener('submit', function () {
+        document.getElementById('loadingSpinner').classList.remove('d-none');
+    });
+</script>
 </body>
 </html>

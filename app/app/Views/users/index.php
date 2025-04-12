@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-6"><a href="/user/create" class="btn btn-primary mb-3">New Task</a></div>
         <div class="col-md-6">
-            <form action="/users" method="GET">
+            <form id="searchForm" action="/users" method="GET" class="position-relative">
                 <div class="input-group">
                     <input type="search" name="search" class="form-control" 
                            placeholder="Search by name or email..." 
@@ -16,6 +16,12 @@
                     <input type="hidden" name="sort_direction" value="<?= esc($users['sortDirection'] ?? '') ?>">
                     <button type="submit" class="input-group-text btn btn-primary">Search</button>
                 </div>
+
+                <!-- ST Spinner -->
+                <div id="loadingSpinner"  class="spinner-border text-primary  position-absolute top-0 ms-3 d-none" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <!-- En Spinner -->
             </form>
         </div>
     </div>
@@ -67,7 +73,7 @@
                     <?php  if (!    empty($user['avatar'])): ?>  
                     <td><img src="<?= esc($user['avatar']) ?>" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td>
                     <?php else : ?>
-                    <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td>
+                    <!-- <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td> -->
                     <?php endif; ?>
 
                     <td><?= esc($user['firstname']) ?></td>

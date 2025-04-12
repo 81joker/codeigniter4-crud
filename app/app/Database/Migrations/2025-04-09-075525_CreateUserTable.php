@@ -11,7 +11,7 @@ class CreateUserTable extends Migration
     {
         $this->forge->addField([
             'id'          => ['type' => 'INT', 'unsigned' => true, 'auto_increment' => true],
-            'avatar'      => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => true],
+            // 'avatar'      => ['type' => 'VARCHAR', 'constraint' => '255', 'null' => true],
             'firstname'   => ['type' => 'VARCHAR', 'constraint' => '100'],
             'lastname'    => ['type' => 'VARCHAR', 'constraint' => '100'],
             'email'       => ['type' => 'VARCHAR', 'constraint' => '150', 'unique' => true],
