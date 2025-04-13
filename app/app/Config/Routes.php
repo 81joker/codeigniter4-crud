@@ -13,6 +13,7 @@ $routes->get('/active-users', 'DashboardController::activeUsers');
 
 // Users 
 $routes->get('/users', 'UserController::index');
+$routes->get('/user/show', 'UserController::show');
 $routes->get('/user/create', 'UserController::create');
 $routes->post( '/users/store', 'UserController::store');
 $routes->get('/user/edit/(:num)', 'UserController::edit/$1');

@@ -38,10 +38,6 @@
                     <h5 class="card-title">Latest Users</h5>
                     <ul class="list-group list-group-flush">
                     <?php foreach ($latestUsers as $user): ?>
-
-
-                    
-                    
                     <?php
                     $name = $user['firstname'] . ' ' . $user['lastname'];
                     $activae = \App\Enums\UserStatus::Active->value;
