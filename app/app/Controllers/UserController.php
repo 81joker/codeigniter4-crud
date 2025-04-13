@@ -63,7 +63,6 @@ class UserController extends BaseController
         public function store()
         {
             $model = new UserModel();
-            
             // Validation rules
             $rules = [
                 'firstname' => 'required|min_length[2]|max_length[50]',
@@ -137,18 +136,42 @@ class UserController extends BaseController
         $rules = [
             'firstname' => 'required|min_length[2]|max_length[50]',
             'lastname'  => 'required|min_length[2]|max_length[50]',
-            'email'     => "required|valid_email|is_unique[users.email,id,{$id}]"
-
-            // 'avatar'    => [
-            //     'rules' => 'uploaded[avatar]|max_size[avatar,1024]|is_image[avatar]',
-            //     'errors' => [
-            //         'uploaded' => 'Please select an avatar image',
-            //         // 'max_size' => 'Avatar image size is too large (max 3MB)',
-            //         'is_image' => 'Only image files (jpg, png, gif) are allowed'
-            //     ]
-            // ]
+            'email'     => "required|valid_email|is_unique[users.email,id,{$id}]",
+            'avatar'    => [
+                'rules' => 'if_exist|max_size[avatar,1024]|is_image[avatar]',
+                'errors' => [
+                    'uploaded' => 'Please select an avatar image',
+                    'max_size' => 'Avatar image size is too large (max 3MB)',
+                    'is_image' => 'Only image files (jpg, png, gif) are allowed'
+                ]
+            ]
         ];
+        // Avatar Handle
+        // $avatar = $this->request->getFile('avatar');
+        // var_dump($avatar);
+        // $newName = $avatar->getRandomName();
     
+
+        // if (!is_writable(ROOTPATH . 'public/uploads/avatars')) {
+        //     die('Upload directory is not writable!');
+        // } else {
+        //     $avatar->move(ROOTPATH . 'public/uploads/avatars', $newName);
+        // }
+        $avatar = $this->request->getFile('avatar');
+        $avatarPath = null;
+        
+        if ($avatar && $avatar->isValid() && !$avatar->hasMoved()) {
+            $newName = $avatar->getRandomName();
+
+            if (!is_writable(ROOTPATH . 'public/uploads/avatars')) {
+                die('Upload directory is not writable!');
+            }
+        
+            $avatar->move(ROOTPATH . 'public/uploads/avatars', $newName);
+            $avatarPath = 'uploads/avatars/' . $newName;
+        }
+        
+
         if (!$this->validate($rules)) {
             return redirect()->back()
                 ->with('errors', $this->validator->getErrors())
@@ -158,8 +181,11 @@ class UserController extends BaseController
             'firstname' => $this->request->getPost('firstname'),
             'lastname'  => $this->request->getPost('lastname'),
             'email'     => $this->request->getPost('email'),
-            // 'avatar'    => 'uploads/avatars/' . $newName,
         ];
+
+        if ($avatarPath) {
+            $data['avatar'] = $avatarPath;
+        }
         $db = \Config\Database::connect();
         $db->table('users')
             ->set($data)
