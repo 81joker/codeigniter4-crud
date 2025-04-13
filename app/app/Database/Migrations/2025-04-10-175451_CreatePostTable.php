@@ -15,6 +15,7 @@ class CreatePostTable extends Migration
             'user_id'    => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true], 
             'title'      => ['type' => 'VARCHAR', 'constraint' => '100'],
             'content'    => ['type' => 'TEXT', 'null' => true],
+            'state'       => ['type' => 'TINYINT', 'default' => 0],
             'created_at'  => [ 'type'    => 'TIMESTAMP','default' => new RawSql('CURRENT_TIMESTAMP')],
             'updated_at'  => ['type'    => 'TIMESTAMP','default' => new RawSql('CURRENT_TIMESTAMP')],
         ]);
