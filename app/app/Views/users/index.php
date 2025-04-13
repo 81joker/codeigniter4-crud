@@ -110,10 +110,9 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    </div>
     <div class="pagination">
         <?= $users['pager']->links() ?>
     </div>
+    </div>
 </div>
-
 <?= $this->endSection() ?>
