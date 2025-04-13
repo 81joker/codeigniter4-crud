@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
                 'id'        => $i,
                 'firstname' => 'Firstname' . $i,
                 'lastname'  => 'Lastname' . $i,
-                 'avatar'    => 'https://i.pravatar.cc/150?img=3'.$i,
+                'avatar' => 'person_' . $i . '.jpg',
                 'email'     => 'user' . $i . '@example.com',
                 'state'     => rand(0, 1), 
             ]);

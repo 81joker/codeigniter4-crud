@@ -1,9 +1,23 @@
 <?= $this->extend('layouts/app') ?>
 
 <?= $this->section('content')?>
+
+<?php if (session()->has('errors')) : ?>
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            <?php foreach (session('errors') as $error) : ?>
+                <li><?= esc($error) ?></li>
+            <?php endforeach ?>
+        </ul>
+    </div>
+<?php endif ?>
+
 <div class="container mt-5">
-    <h1>Edit Post</h1>
-    <form method="post" action="/users/update/<?= $user['id'] ?>">
+    <h1 class="fs-3 fw-semibold">Edit User</h1>
+
+    <form method="post" action="/users/update/<?= $user['id'] ?>" enctype="multipart/form-data"> 
+    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
+
         <div class="mb-3">
             <label class="form-label">First Name</label>
             <input type="text" name="firstname" class="form-control" value="<?= $user['firstname'] ?>" required>
@@ -17,7 +31,12 @@
             <input type="email" name="email" class="form-control" value="<?= $user['email'] ?>" required>
         </div>
 
-        <button type="submit" class="btn btn-warning">Update</button>
+        <div class="mb-3">
+            <label class="form-label">Avatar</label>
+            <input type="file" name="avatar" class="form-control"  value="<?= $user['avatar'] ?>" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn btn-primary px-4">Update</button>
     </form>
 </div>
 <?= $this->endSection() ?>

@@ -30,7 +30,7 @@ class UserModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'id'    => 'is_natural_no_zero',
+        // 'id'    => 'is_natural_no_zero',
         'firstname' => 'required|min_length[2]|max_length[100]',
         'lastname'  => 'required|min_length[2]|max_length[100]',
         'email'     => 'required|valid_email|is_unique[users.email,id,{id}]',
@@ -40,19 +40,19 @@ class UserModel extends Model
     
     protected $validationMessages   = [
         'firstname' => [
-            'required'    => 'الاسم الأول مطلوب',
-            'min_length'  => 'الاسم الأول يجب أن يحتوي على حرفين على الأقل',
+            'required' => 'Der Vorname ist erforderlich',
+            'min_length' => 'Der Vorname muss mindestens zwei Zeichen lang sein',
         ],
         'email' => [
-            'required'     => 'البريد الإلكتروني مطلوب',
-            'valid_email'  => 'صيغة البريد غير صحيحة',
-            'is_unique'    => 'هذا البريد مسجل بالفعل',
+            'required' => 'Die E-Mail-Adresse ist erforderlich',
+            'valid_email' => 'Das E-Mail-Format ist ungültig',
+            'is_unique' => 'Diese E-Mail-Adresse ist bereits registriert',
         ],
         'avatar' => [
-            'uploaded' => 'Please select an avatar image',
-            'max_size' => 'Avatar image size should not exceed 1MB',
-            'is_image' => 'Only image files are allowed',
-            'mime_in'  => 'Only JPG, JPEG, and PNG images are allowed'
+            'uploaded' => 'Bitte wählen Sie ein Avatar-Bild aus',
+            'max_size' => 'Die Avatar-Bildgröße darf 1 MB nicht überschreiten',
+            'is_image' => 'Nur Bilddateien sind erlaubt',
+            'mime_in' => 'Nur JPG-, JPEG- und PNG-Bilder sind erlaubt',
         ]
     ];
 

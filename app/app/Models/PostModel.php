@@ -31,12 +31,23 @@ class PostModel extends Model
 
     // Validation
     protected $validationRules = [
-        'user_id' => 'required',  
-        // 'user_id' => 'required|is_natural_no_zero|exists[users,id]',  
+        'user_id' => 'permit_empty|is_natural_no_zero|exists[users,id]', 
         'title'   => 'required|min_length[3]|max_length[255]',
-        'content' => 'required',
+        'content' => 'required|min_length[6]|max_length[750]',
     ];
-    
+    protected $validationMessages = [
+        'title' => [
+            'required' => 'Der Vorname ist erforderlich',
+            'min_length' => 'Der Vorname muss mindestens zwei Zeichen enthalten',
+        ],
+        'content' => [
+            'required' => 'Der Nachname ist erforderlich',
+            'min_length' => 'Der Nachname muss mindestens zwei Zeichen enthalten',
+            'max_length' => 'Der Nachname darf nicht länger als 255 Zeichen sein',
+
+        ],
+    ];
+
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
