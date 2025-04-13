@@ -56,9 +56,8 @@
             </nav>
             
             <div class="container-fluid">
-                <div class="alert alert-primary" role="alert">
-                    Welcome to your dashboard! Click the toggle button to show/hide the sidebar.
-                </div>
+                <?= view('partials/alerts') ?>
+
            
                 
                 <main>
