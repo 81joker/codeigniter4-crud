@@ -49,6 +49,10 @@ class UserController extends BaseController
         return view('users/index', ['users' => $data]);
     }
 
+    public function show()
+    {
+        return view('users/show');
+    }
 
     public function create()
     {
