@@ -44,21 +44,26 @@
                     
                     <?php
                     $name = $user['firstname'] . ' ' . $user['lastname'];
+                    $activae = \App\Enums\UserStatus::Active->value;
+                    // base_url(esc($user['avatar']))
                     ?>
- <?php
-                            ?>
                     <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
                         <div class="position-relative" >
-                            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt=""  style="width: 40px;">
-                            <?php if (\App\Enums\UserStatus::Active->value == $user['state']): ?>
-                           
+                            <?php if($user['avatar']): ?>
+                        
+                            <img src="<?= (esc($user['avatar'])) ?>"  alt="<?= $name ?>" class="rounded-circle"  style="width: 40px;">
+                            <?php else: ?>
+                            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="<?= $name ?>"  style="width: 40px;">
+                            <?php endif; ?>
+                            <?php if ($user['state'] == 1 && $activae): ?>
                             <span class="position-absolute  start-100 translate-middle p-1 bg-success border border-light rounded-circle" style="top: 10%;">
                                 <span class="visually-hidden">New alerts</span>
                             </span>
+                            <?php else: ?>
+                                <span class="position-absolute  start-100 translate-middle p-1 bg-secondary border border-light rounded-circle" style="top: 10%;">
+                                    <span class="visually-hidden">New alerts</span>
+                                </span>
                             <?php endif; ?>
-                            <!-- <span class="position-absolute  start-100 translate-middle p-1 bg-danger border border-light rounded-circle" style="top: 10%;">
-                                <span class="visually-hidden">New alerts</span>
-                            </span> -->
                         </div>  
                     <div class="ps-4">
                         <span class="fw-semibold d-flex"><?= $name ?></span>
