@@ -133,7 +133,8 @@ class UserController extends BaseController
         $rules = [
             'firstname' => 'required|min_length[2]|max_length[50]',
             'lastname'  => 'required|min_length[2]|max_length[50]',
-            'email'     => 'required|valid_email|is_unique[users.email]',
+            'email'     => "required|valid_email|is_unique[users.email,id,{$id}]"
+
             // 'avatar'    => [
             //     'rules' => 'uploaded[avatar]|max_size[avatar,1024]|is_image[avatar]',
             //     'errors' => [

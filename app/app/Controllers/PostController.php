@@ -60,7 +60,7 @@ class PostController extends BaseController
 
     public function store()
     {
-        // var_dump($this->request->getPost());
+
         $model = new PostModel();
         $model->save([
             'title' => $this->request->getPost('title'),
@@ -79,9 +79,16 @@ class PostController extends BaseController
     public function update($id)
     {
         $model = new PostModel();
+
+        if (!$this->validate($model->validationRules)) {
+            return redirect()->back()
+                ->with('errors', $this->validator->getErrors())
+                ->withInput();
+        }
+        
         $model->update($id, [
             'title' => $this->request->getPost('title'),
-            'body' => $this->request->getPost('body')
+            'content' => $this->request->getPost('content')
         ]);
         return redirect()->to('/posts')->with('success', 'Post updated successfully');
     }
