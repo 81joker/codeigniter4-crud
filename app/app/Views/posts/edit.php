@@ -1,23 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Post</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+<?= $this->extend('layouts/app') ?>
+
+<?= $this->section('content')?>
+
+<?php if (session()->has('errors')) : ?>
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            <?php foreach (session('errors') as $error) : ?>
+                <li><?= esc($error) ?></li>
+            <?php endforeach ?>
+        </ul>
+    </div>
+<?php endif ?>
+
 <div class="container mt-5">
-    <h1>Edit Post</h1>
-    <form method="post" action="/posts/update/<?= $post['id'] ?>">
+    <h1 class="fs-3 fw-semibold">Edit Post</h1>
+
+    <form method="post" action="/posts/update/<?= $post['id'] ?>" enctype="multipart/form-data"> 
+    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
+
         <div class="mb-3">
             <label class="form-label">Title</label>
             <input type="text" name="title" class="form-control" value="<?= $post['title'] ?>" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Description</label>
-            <textarea name="body" class="form-control" rows="3"><?= $post['body'] ?></textarea>
+            <label class="form-label">Email</label>
+            <textarea name="content" class="form-control" required><?= $post['content'] ?></textarea>
         </div>
-        <button type="submit" class="btn btn-warning">Update</button>
+
+    
+
+        <button type="submit" class="btn btn-primary px-4">Update</button>
     </form>
 </div>
-</body>
-</html>
+<?= $this->endSection() ?>
