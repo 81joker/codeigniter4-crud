@@ -126,12 +126,43 @@ class UserController extends BaseController
         return view('users/edit', $data);
     }
 
-    public function update($id)
+    public function update($id = null)
     {
         $model = new UserModel();
-        $model->update($id, [
+
+        $rules = [
+            'firstname' => 'required|min_length[2]|max_length[50]',
+            'lastname'  => 'required|min_length[2]|max_length[50]',
+            'email'     => 'required|valid_email|is_unique[users.email]',
+            // 'avatar'    => [
+            //     'rules' => 'uploaded[avatar]|max_size[avatar,1024]|is_image[avatar]',
+            //     'errors' => [
+            //         'uploaded' => 'Please select an avatar image',
+            //         // 'max_size' => 'Avatar image size is too large (max 3MB)',
+            //         'is_image' => 'Only image files (jpg, png, gif) are allowed'
+            //     ]
+            // ]
+        ];
+    
+        if (!$this->validate($rules)) {
+            return redirect()->back()
+                ->with('errors', $this->validator->getErrors())
+                ->withInput();
+        }
+        $data = [
             'firstname' => $this->request->getPost('firstname'),
-        ]);
+            'lastname'  => $this->request->getPost('lastname'),
+            'email'     => $this->request->getPost('email'),
+            // 'avatar'    => 'uploads/avatars/' . $newName,
+        ];
+        $db = \Config\Database::connect();
+        $db->table('users')
+            ->set($data)
+            ->set('updated_at', date('Y-m-d H:i:s'))
+            ->where('id', $id)
+            ->update();
+    
+            // $model->update($id ,$data);
         return redirect()->to('/users')->with('success', 'User updated successfully');
     }
 

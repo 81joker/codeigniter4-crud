@@ -12,8 +12,11 @@
     </div>
 <?php endif ?>
 <div class="container mt-5">
-    <h1>Create New Post</h1>
+    <h1 class="fs-3 fw-semibold">Create New  User</h1>
+
     <form method="post" action="/users/store"  enctype="multipart/form-data">
+    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
+
     <div class="mb-3">
         <label class="form-label">Avatar Image (required)</label>
         <input type="file" name="avatar" class="form-control <?= session('errors.avatar') ? 'is-invalid' : '' ?>">
