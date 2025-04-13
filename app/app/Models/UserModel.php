@@ -30,7 +30,7 @@ class UserModel extends Model
 
     // Validation
     protected $validationRules      = [
-        // 'id'    => 'is_natural_no_zero',
+        'id'    => 'is_natural_no_zero',
         'firstname' => 'required|min_length[2]|max_length[100]',
         'lastname'  => 'required|min_length[2]|max_length[100]',
         'email'     => 'required|valid_email|is_unique[users.email,id,{id}]',

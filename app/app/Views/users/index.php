@@ -2,43 +2,12 @@
 
 <?= $this->section('content') ?>
 
-<div class="container mt-5">
-    <h1>User Manager <?=  count($users['users']) ?></h1>
-    <div class="row">
-        <div class="col-md-6"><a href="/user/create" class="btn btn-primary mb-3">New User</a></div>
-        <div class="col-md-6">
-            <form id="searchForm" action="/users" method="GET" class="position-relative">
-                <div class="input-group">
-                    <input type="search" name="search" class="form-control" 
-                           placeholder="Search by name or email..." 
-                           value="<?= esc($users['search'] ?? '') ?>">
-                    <input type="hidden" name="sort_field" value="<?= esc($users['sortField'] ?? '') ?>">
-                    <input type="hidden" name="sort_direction" value="<?= esc($users['sortDirection'] ?? '') ?>">
-                    <button type="submit" class="input-group-text btn btn-primary">Search</button>
-                </div>
-
-                <?php 
-                // TODO: display message in the user exists 
-                if (in_array($users['search'], $users['users'])){
-                     var_dump("Entra");
-                } else {
-                    var_dump("No entra");
-                }
-
-                ?>
-    
-                <?php if (!empty($users['search'])): ?>
-                    <p>Showing results for: "<?= esc($users['search']) ?>"</p>
-                <?php endif; ?>
-
-                <!-- ST Spinner -->
-                <div id="loadingSpinner"  class="spinner-border text-primary  position-absolute top-0 ms-3 d-none" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
-                <!-- En Spinner -->
-            </form>
-        </div>
+<div class="container">
+    <div class="d-flex justify-content-between py-2">
+        <h1 class="fs-3 fw-semibold">Users</h1>
+    <a href="/user/create" class="btn btn-primary mb-2">Add New User</a>
     </div>
+ 
     
     <?php if (session()->getFlashdata('success')): ?>
         <div class="alert alert-success">
@@ -46,13 +15,50 @@
         </div>
     <?php endif; ?>
 
+    <div class="table-responsive bg-white p-3 rounded-2">
+    <table class="table caption-top align-middle">
+
+
+    <div class="row d-flex justify-content-between pb-3">
+        <div class="col-md-3">
+            <div>User Manager <?=  count($users['users']) ?></div>
+
+        </div>
+        <div class="col-md-3 position-relative">
+            <form id="searchForm" action="/users" method="GET">
+                <div class="input-group">
+                    <input type="search" name="search" class="form-control z-1" 
+                           placeholder="Search by name or email..." 
+                           value="<?= esc($users['search'] ?? '') ?>"
+                           id="searchInput"
+                           >
+                    <input type="hidden" name="sort_field" value="<?= esc($users['sortField'] ?? '') ?>">
+                    <input type="hidden" name="sort_direction" value="<?= esc($users['sortDirection'] ?? '') ?>">
+                    <button type="submit" class="input-group-text btn btn-primary">Search</button>
+                </div>
     
-    <table class="table table-bordered">
-        <thead>
+                <?php 
+                /*
+                 if (!empty($users['search'])):  
+                    esc($users['search']) 
+                    */
+                    ?>
+
+                <!-- ST Spinner -->
+                <div id="loadingSpinner"  class="spinner-border text-primary d-none  position-absolute top-50 ms-3 z-3" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <!-- En Spinner -->
+            </form>
+        </div>
+    </div>
+
+
+        <thead class="table-light">
             <tr class="text-center">
                 <th>Avatar</th>
                 <th>
-                    <a href="?sort_field=firstname&sort_direction=<?= ($users['sortField'] === 'firstname' && $users['sortDirection'] === 'ASC') ? 'DESC' : 'ASC' ?>&search=<?= esc($users['search'] ?? '') ?>">
+                    <a href="?sort_field=firstname&sort_direction=<?= ($users['sortField'] === 'firstname' && $users['sortDirection'] === 'ASC') ? 'DESC' : 'ASC' ?>&search=<?= esc($users['search'] ?? '') ?>" class="text-dark">
                         First Name 
                         <?php if ($users['sortField'] === 'firstname'): ?>
                             <?= $users['sortDirection'] === 'ASC' ? '↑' : '↓' ?>
@@ -60,7 +66,7 @@
                     </a>
                 </th>
                 <th>
-                    <a href="?sort_field=lastname&sort_direction=<?= ($users['sortField'] === 'lastname' && $users['sortDirection'] === 'ASC') ? 'DESC' : 'ASC' ?>&search=<?= esc($users['search'] ?? '') ?>">
+                    <a href="?sort_field=lastname&sort_direction=<?= ($users['sortField'] === 'lastname' && $users['sortDirection'] === 'ASC') ? 'DESC' : 'ASC' ?>&search=<?= esc($users['search'] ?? '') ?>" class="text-dark">
                         Last Name 
                         <?php if ($users['sortField'] === 'lastname'): ?>
                             <?= $users['sortDirection'] === 'ASC' ? '↑' : '↓' ?>
@@ -68,7 +74,7 @@
                     </a>
                 </th>
                 <th>
-                    <a href="?sort_field=email&sort_direction=<?= ($users['sortField'] === 'email' && $users['sortDirection'] === 'ASC') ? 'DESC' : 'ASC' ?>&search=<?= esc($users['search'] ?? '') ?>">
+                    <a href="?sort_field=email&sort_direction=<?= ($users['sortField'] === 'email' && $users['sortDirection'] === 'ASC') ? 'DESC' : 'ASC' ?>&search=<?= esc($users['search'] ?? '') ?>" class="text-dark">
                         Email 
                         <?php if ($users['sortField'] === 'email'): ?>
                             <?= $users['sortDirection'] === 'ASC' ? '↑' : '↓' ?>
@@ -90,15 +96,21 @@
                     <td><?= esc($user['firstname']) ?></td>
                     <td><?= esc($user['lastname']) ?></td>
                     <td><?= esc($user['email']) ?></td>
-                    <td class="d-flex justify-content-around">
-                        <a href="/user/edit/<?= $user['id'] ?>" class="btn btn-warning">Edit</a>
-                        <a href="/user/delete/<?= $user['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                    <td >
+                        <div class="dropdown dropstart">
+                            <i class="bi bi-three-dots-vertical" role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="<?= base_url('user/edit/' . $user['id']) ?>">edit</a></li>
+                                <li><hr class="dropdown-divider"><a class="dropdown-item" href="<?= base_url('user/delete/' . $user['id']) ?>">Deltee</a></li>
+                            </ul>
+                            
+                        </div>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-    
+    </div>
     <div class="pagination">
         <?= $users['pager']->links() ?>
     </div>
