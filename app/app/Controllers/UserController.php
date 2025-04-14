@@ -58,8 +58,7 @@ class UserController extends BaseController
     {
         return view('users/create');
     }
-// $path = $this->request->getFile('userfile')->store();
-        // $path = $this->request->getFile('userfile')->store(folderName: 'head_img/', 'user_name.jpg');
+
         public function store()
         {
             $model = new UserModel();
@@ -86,6 +85,7 @@ class UserController extends BaseController
         
             // Handle file upload
             $avatar = $this->request->getFile('avatar');
+            dd($avatar);
             $newName = $avatar->getRandomName();
             // $avatar->move(ROOTPATH . 'public/uploads/avatars', $newName);
             // if (!is_writable('/var/www/html/public/uploads/avatars')) {
@@ -187,9 +187,7 @@ class UserController extends BaseController
             'status'    => $status
             // 'avatar'    => 'uploads/avatars/' . $newName,
         ];
-        dd($data);
 
-        ];
 
         if ($avatarPath) {
             $data['avatar'] = $avatarPath;
