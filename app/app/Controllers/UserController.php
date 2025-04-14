@@ -45,9 +45,11 @@ class UserController extends BaseController
         return view('users/index', ['users' => $data]);
     }
 
-    public function show()
+    public function show($id)
     {
-        return view('users/show');
+        $model = new UserModel();
+        $data['user'] = $model->find($id);
+        return view('users/show' , $data);
     }
 
     public function create()

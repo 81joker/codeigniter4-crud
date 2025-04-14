@@ -1,24 +1,83 @@
 <?= $this->extend('layouts/app') ?>
 
-<?= $this->section('content')?>
+<?= $this->section('content') ?>
 
 <div class="container mt-5">
-    <h1 class="fs-3 fw-semibold">View User</h1>
-    <div class="row">
-        <div class="col-md-6">
-          
-        <div class="card mb-3">
-  <img src="data:image/jpeg;base64,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" class="card-img-top w-100" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-  </div>
+  <h1 class="fs-3 fw-semibold">View User</h1>
+  <div class="row">
 
-
-
+  <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+          <?php if (empty($post['avatar'])): ?>
+            <img src="<?=base_url(esc($user['avatar'])) ?>" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+              <?php else : ?>
+                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+              <?php endif; ?>
+              <?php $name = $user['firstname'] . ' ' . $user['lastname']; ?>
+                <h5 class="my-3"><?= $name ?> </h5>
+                <p class="text-muted mb-1">Full Stack Developer</p>
+                <p class="text-muted mb-4">Vienna, CA</p>
+                <div class="d-flex justify-content-center mb-2">
+            </div>
+          </div>
         </div>
+      </div>
+
+    <div class="col-md-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><?= $name ?> </p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><?= $user['email'] ?></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Phone</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">(+43) 234-5678</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Mobile</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">(+43) 765-4321</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Address</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">Hermann-Bahr-Straße 1, Vienna</p>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </div>
+
     </div>
- 
-</div>
-<?= $this->endSection() ?>
+
+  </div>
+  <?= $this->endSection() ?>

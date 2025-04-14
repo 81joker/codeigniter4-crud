@@ -29,12 +29,9 @@
                             <button type="submit" class="input-group-text btn btn-primary">Search</button>
                         </div>
 
-
-                        <!-- ST Spinner -->
                         <div id="loadingSpinner" class="spinner-border text-primary d-none  position-absolute top-50 ms-3 z-3" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
-                        <!-- En Spinner -->
                     </form>
                 </div>
             </div>
