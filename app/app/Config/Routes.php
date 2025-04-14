@@ -31,3 +31,9 @@ $routes->get('/post/edit/(:num)', 'PostController::edit/$1');
 $routes->post('/posts/update/(:num)', 'PostController::update/$1');
 $routes->get('/post/delete/(:num)', 'PostController::delete/$1');
 
+// Testing 
+$routes->get('test', 'TestController::index');
+$routes->get('test/json', 'TestController::usersJson');
+$routes->get('test/xml', 'TestController::usersXml');
+
+
