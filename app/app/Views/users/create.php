@@ -25,7 +25,6 @@
                 <?= session('errors.avatar') ?>
             </div>
         <?php endif ?>
-        <small class="text-muted">Max 1MB, JPG/PNG/GIF only</small>
     </div>
         <div class="mb-3">
             <label class="form-label">First Name</label>
@@ -39,6 +38,13 @@
             <label class="form-label">Email</label>
             <input type="email" name="email" class="form-control"  value="<?= old('email') ?>">
         </div>
+
+        <!-- In your form -->
+<label>
+    <input type="checkbox" name="status" value="active" >
+    Active
+</label>
+
 
         <button type="submit" class="btn btn-primary">Save</button>
     </form>

@@ -51,7 +51,7 @@
                             <?php else: ?>
                             <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="<?= $name ?>"  style="width: 40px;">
                             <?php endif; ?>
-                            <?php if ($user['state'] == 1 && $activae): ?>
+                            <?php if ($user['status'] == 'active' && $activae): ?>
                             <span class="position-absolute  start-100 translate-middle p-1 bg-success border border-light rounded-circle" style="top: 10%;">
                                 <span class="visually-hidden">New alerts</span>
                             </span>

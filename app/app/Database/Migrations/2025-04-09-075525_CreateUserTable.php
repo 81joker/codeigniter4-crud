@@ -16,7 +16,6 @@ class CreateUserTable extends Migration
             'lastname'    => ['type' => 'VARCHAR', 'constraint' => '100'],
             'email'       => ['type' => 'VARCHAR', 'constraint' => '150', 'unique' => true],
             'status' => ['type' => 'VARCHAR','constraint' => 20,'default'    => 'active','null'=> false],
-            // 'state'       => ['type' => 'TINYINT', 'default' => 0],
             'created_at'  => ['type'    => 'TIMESTAMP', 'default' => new RawSql('CURRENT_TIMESTAMP')],
             'updated_at'  => ['type'    => 'TIMESTAMP', 'default' => new RawSql('CURRENT_TIMESTAMP')],
         ]);

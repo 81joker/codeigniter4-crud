@@ -102,12 +102,14 @@ class UserController extends BaseController
             } else {
                 $avatar->move(ROOTPATH . 'public/uploads/avatars', $newName);
             }
+            $status = $this->request->getPost('status') === 'active' ? 'active' : 'inactive';
 
             $data = [
                 'firstname' => $this->request->getPost('firstname'),
                 'lastname'  => $this->request->getPost('lastname'),
                 'email'     => $this->request->getPost('email'),
                 'avatar'    => 'uploads/avatars/' . $newName,
+                'status'    => $status
             ];
         
             if (!$model->save($data)) {
@@ -184,7 +186,7 @@ class UserController extends BaseController
             'firstname' => $this->request->getPost('firstname'),
             'lastname'  => $this->request->getPost('lastname'),
             'email'     => $this->request->getPost('email'),
-            // 'status'    => $status
+            'status'    => $status
             // 'avatar'    => 'uploads/avatars/' . $newName,
         ];
 

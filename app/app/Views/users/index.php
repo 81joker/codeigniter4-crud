@@ -29,14 +29,6 @@
                     <input type="hidden" name="sort_direction" value="<?= esc($users['sortDirection'] ?? '') ?>">
                     <button type="submit" class="input-group-text btn btn-primary">Search</button>
                 </div>
-    
-                <?php 
-                /*
-                 if (!empty($users['search'])):  
-                    esc($users['search']) 
-                    */
-                    ?>
-
                 <!-- ST Spinner -->
                 <div id="loadingSpinner"  class="spinner-border text-primary d-none  position-absolute top-50 ms-3 z-3" role="status">
                   <span class="visually-hidden">Loading...</span>
@@ -45,7 +37,6 @@
             </form>
         </div>
     </div>
-
 
         <thead class="table-light">
             <tr class="text-center">
@@ -80,8 +71,13 @@
         <tbody>
             <?php foreach ($users['users'] as $user): ?>
                 <tr class="text-center">
+                 <?php
+                    $status = $user['status'];
+                    $borderClass = ($status == 'active') ? 'border-primary' : 'border-secondary';
+                    ?>
+
                     <?php  if (!    empty($user['avatar'])): ?>  
-                    <td class="w-25 h-25"><img src="<?= base_url(esc($user['avatar'])) ?>" class="img-thumbnail rounded-circle w-25"  alt="<?= esc($user['firstname']) ?>"></td>
+                    <td class="w-25 h-25"><img src="<?= base_url(esc($user['avatar'])) ?>" class="img-thumbnail rounded-circle w-25 border border-2 <?= $borderClass ?>"  alt="<?= esc($user['firstname']) ?>"></td>
                     <?php else : ?>
                     <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td>
                     <?php endif; ?>

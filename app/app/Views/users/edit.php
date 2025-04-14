@@ -26,6 +26,12 @@
             <input type="file" name="avatar" class="form-control"  value="<?= $user['avatar'] ?>" accept="image/*">
         </div>
 
+        <label>
+            <input type="checkbox" name="status" value="active" <?= ($user['status'] === 'active') ? 'checked' : '' ?>>
+            Active
+        </label>
+
+
         <button type="submit" class="btn btn-primary px-4">Update</button>
     </form>
 </div>

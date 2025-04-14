@@ -18,7 +18,7 @@ class DashboardController extends BaseController
         $latestUsers = $modelUser->orderBy('created_at', 'desc')->limit(5)->findAll();
         $latestPosts = $modelPost->orderBy('created_at', 'desc')->limit(5)->findAll();
         
-        $activeUsers = $modelUser->where('state', UserStatus::Active->value)->countAllResults();
+        $activeUsers = $modelUser->where('status', UserStatus::Active->value)->countAllResults();
         $activePosts = $modelPost->countAllResults();
         // $activePosts = $modelPost->where('state', PostStatus::Active->value)->countAllResults();
         $data = [

@@ -13,7 +13,7 @@ class UserModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'firstname', 'lastname', 'avatar', 'email', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['id', 'firstname', 'lastname', 'status', 'avatar', 'email', 'created_at', 'updated_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -34,7 +34,7 @@ class UserModel extends Model
         'firstname' => 'required|min_length[2]|max_length[100]',
         'lastname'  => 'required|min_length[2]|max_length[100]',
         'email'     => 'required|valid_email|is_unique[users.email,id,{id}]',
-        // 'status'    => 'permit_empty|in_list[active,inactive]',
+        'status'    => 'permit_empty|in_list[active,inactive]',
   
         // 'avatar'    => 'uploaded[avatar]|max_size[avatar,1024]|is_image[avatar]|mime_in[avatar,image/jpg,image/jpeg,image/png]'
     ];
