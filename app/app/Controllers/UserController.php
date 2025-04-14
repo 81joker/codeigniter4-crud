@@ -14,18 +14,13 @@ class UserController extends BaseController
     
     public function index()
     {
-
-
-        // Get request parameters with defaults
         $perPage = $this->request->getGet('per_page') ?? 10;
         $search = $this->request->getGet('search') ?? '';
         $sortField = $this->request->getGet('sort_field') ?? 'updated_at';
         $sortDirection = $this->request->getGet('sort_direction') ?? 'DESC';
 
-        // Validate sort direction
         $sortDirection = strtoupper($sortDirection) === 'ASC' ? 'ASC' : 'DESC';
 
-        // Build the query
         $userModel = new UserModel();
         $query = $userModel;
 
@@ -37,10 +32,8 @@ class UserController extends BaseController
                 ->groupEnd();
         }
 
-        // Apply sorting
         $query = $query->orderBy($sortField, $sortDirection);
 
-        // Get paginated results
         $data = [
             'users' => $query->paginate($perPage),
             'pager' => $userModel->pager,

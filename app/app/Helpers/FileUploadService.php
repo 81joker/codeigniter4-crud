@@ -15,16 +15,6 @@ class FileUploadService
         }
         $uploadPath = FCPATH . "uploads/{$directory}/";
 
-        // if (!is_dir($uploadPath)) {
-        //     try {
-        //         mkdir($uploadPath, 0775, true);  
-        //         chmod($uploadPath, 0775);        
-        //     } catch (\Exception $e) {
-        //         die('Error creating directory: ' . $e->getMessage());
-        //     }
-        //  }
-
-
         if (!is_dir($uploadPath) && !mkdir($uploadPath, 0777, true) && !is_dir($uploadPath)) {
             throw new RuntimeException(sprintf('Failed to create directory: %s', $uploadPath));
         }
