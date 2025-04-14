@@ -12,7 +12,6 @@ class UserController extends BaseController
     public function index()
     {
 
-
         // Get request parameters with defaults
         $perPage = $this->request->getGet('per_page') ?? 10;
         $search = $this->request->getGet('search') ?? '';
