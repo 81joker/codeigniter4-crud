@@ -11,16 +11,20 @@ use CodeIgniter\Exceptions\RuntimeException;
 
 class UserController extends BaseController
 {
-    
     public function index()
     {
+
+
+        // Get request parameters with defaults
         $perPage = $this->request->getGet('per_page') ?? 10;
         $search = $this->request->getGet('search') ?? '';
         $sortField = $this->request->getGet('sort_field') ?? 'updated_at';
         $sortDirection = $this->request->getGet('sort_direction') ?? 'DESC';
 
+        // Validate sort direction
         $sortDirection = strtoupper($sortDirection) === 'ASC' ? 'ASC' : 'DESC';
 
+        // Build the query
         $userModel = new UserModel();
         $query = $userModel;
 
@@ -32,8 +36,10 @@ class UserController extends BaseController
                 ->groupEnd();
         }
 
+        // Apply sorting
         $query = $query->orderBy($sortField, $sortDirection);
 
+        // Get paginated results
         $data = [
             'users' => $query->paginate($perPage),
             'pager' => $userModel->pager,
@@ -45,11 +51,9 @@ class UserController extends BaseController
         return view('users/index', ['users' => $data]);
     }
 
-    public function show($id)
+    public function show()
     {
-        $model = new UserModel();
-        $data['user'] = $model->find($id);
-        return view('users/show' , $data);
+        return view('users/show');
     }
 
     public function create()
@@ -123,13 +127,8 @@ class UserController extends BaseController
     public function update($id = null)
     {
         $model = new UserModel();
-        $uploadService = new FileUploadService();
-
-        $user = $model->find($id);
-        $oldAvatarPath = $user['avatar'] ?? null;
-
-
         $status = $this->request->getPost('status') === 'active' ? 'active' : 'inactive';
+
         $rules = [
             'firstname' => 'required|min_length[2]|max_length[50]',
             'lastname'  => 'required|min_length[2]|max_length[50]',
@@ -149,17 +148,17 @@ class UserController extends BaseController
         $avatar = $this->request->getFile('avatar');
         $avatarPath = null;
 
-        try {
-            $avatarPath = $uploadService->updateFile(
-                $avatar, 
-                'avatars',
-                $oldAvatarPath
-            );
-        } catch (RuntimeException $e) {
-            return redirect()->back()
-                ->with('errors', ['avatar' => $e->getMessage()])
-                ->withInput();
+        if ($avatar && $avatar->isValid() && !$avatar->hasMoved()) {
+            $newName = $avatar->getRandomName();
+
+            if (!is_writable(ROOTPATH . 'public/uploads/avatars')) {
+                die('Upload directory is not writable!');
+            }
+
+            $avatar->move(ROOTPATH . 'public/uploads/avatars', $newName);
+            $avatarPath = 'uploads/avatars/' . $newName;
         }
+
 
         if (!$this->validate($rules)) {
             return redirect()->back()
@@ -171,6 +170,7 @@ class UserController extends BaseController
             'lastname'  => $this->request->getPost('lastname'),
             'email'     => $this->request->getPost('email'),
             'status'    => $status
+            // 'avatar'    => 'uploads/avatars/' . $newName,
         ];
 
         if ($avatarPath) {

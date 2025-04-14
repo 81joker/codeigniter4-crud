@@ -37,42 +37,40 @@
                 <div class="card-body">
                     <h5 class="card-title">Latest Users</h5>
                     <ul class="list-group list-group-flush">
-                    <?php foreach ($latestUsers as $user): ?>
-                    <?php
-                    $name = $user['firstname'] . ' ' . $user['lastname'];
-                    $activae = \App\Enums\UserStatus::Active->value;
-                    // base_url(esc($user['avatar']))
-                    ?>
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                        <div class="position-relative" >
-                            <?php if($user['avatar']): ?>
-                        
-                            <img src="<?= (esc($user['avatar'])) ?>"  alt="<?= $user['firstname']; ?>" class="rounded-circle"  style="width: 40px;">
-                            <?php else: ?>
-                            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="<?= $name ?>"  style="width: 40px;">
-                            <?php endif; ?>
-                            <?php if ($user['status'] == 'active' && $activae): ?>
-                            <span class="position-absolute  start-100 translate-middle p-1 bg-success border border-light rounded-circle" style="top: 10%;">
-                                <span class="visually-hidden">New alerts</span>
-                            </span>
-                            <?php else: ?>
-                                <span class="position-absolute  start-100 translate-middle p-1 bg-secondary border border-light rounded-circle" style="top: 10%;">
-                                    <span class="visually-hidden">New alerts</span>
-                                </span>
-                            <?php endif; ?>
-                        </div>  
-                    <div class="ps-4">
-                        <span class="fw-semibold d-flex"><?= $name ?></span>
-                        <span class="text-muted"><?= $user['email'] ?></span>
-                        </div>
-                    </a>
-                    <?php endforeach; ?>
+                        <?php foreach ($latestUsers as $user): ?>
+                            <?php
+                            $name = $user['firstname'] . ' ' . $user['lastname'];
+                            $activae = \App\Enums\UserStatus::Active->value;
+                            ?>
+                            <a href="<?php echo base_url('/user/show/' . $user['id']) ?>" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <div class="position-relative">
+                                    <?php if ($user['avatar']): ?>
+
+                                        <img src="<?= (esc($user['avatar'])) ?>" alt="<?= $user['firstname']; ?>" class="rounded-circle" style="width: 40px;">
+                                    <?php else: ?>
+                                        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="<?= $name ?>" style="width: 40px;">
+                                    <?php endif; ?>
+                                    <?php if ($user['status'] == 'active' && $activae): ?>
+                                        <span class="position-absolute  start-100 translate-middle p-1 bg-success border border-light rounded-circle" style="top: 10%;">
+                                            <span class="visually-hidden">New alerts</span>
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="position-absolute  start-100 translate-middle p-1 bg-secondary border border-light rounded-circle" style="top: 10%;">
+                                            <span class="visually-hidden">New alerts</span>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="ps-4">
+                                    <span class="fw-semibold d-flex"><?= $name ?></span>
+                                    <span class="text-muted"><?= $user['email'] ?></span>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
 
                     </ul>
                 </div>
             </div>
         </div>
-
 
         <!-- Latest Posts -->
         <div class="col-md-6 mb-4">
@@ -80,25 +78,19 @@
                 <div class="card-body">
                     <h5 class="card-title">Latest Users</h5>
                     <ul class="list-group list-group-flush">
-
-                    <?php foreach ($latestPosts as $post): ?>                    
-                
-                    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-                        
-                    <div class="ps-4">
-                        <span class="fw-semibold d-flex"><?= $post['title'] ?></span>
-                        <span class="text-muted"><?= $post['content'] ?></span>
-                        </div>
-                    </a>
-                    <?php endforeach; ?>
-
+                        <?php foreach ($latestPosts as $post): ?>
+                            <a href="<?php echo base_url('/post/show/' . $post['id']) ?>" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <div class="ps-4">
+                                    <span class="fw-semibold d-flex"><?= $post['title'] ?></span>
+                                    <span class="text-muted"><?= $post['content'] ?></span>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
         </div>
 
-   
-
-  </div>
+    </div>
 </div>
 <?= $this->endSection() ?>

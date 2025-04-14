@@ -29,17 +29,15 @@ class UserModel extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [
-        //  'id'    => 'is_natural_no_zero',
+    protected $validationRules = [
+        'id'        => 'permit_empty|is_natural_no_zero',
         'firstname' => 'required|min_length[2]|max_length[100]',
         'lastname'  => 'required|min_length[2]|max_length[100]',
         'email'     => 'required|valid_email|is_unique[users.email,id,{id}]',
         'status'    => 'permit_empty|in_list[active,inactive]',
-  
-        // 'avatar'    => 'uploaded[avatar]|max_size[avatar,1024]|is_image[avatar]|mime_in[avatar,image/jpg,image/jpeg,image/png]'
     ];
     
-    protected $validationMessages   = [
+    protected $validationMessages  = [
         'firstname' => [
             'required' => 'Der Vorname ist erforderlich',
             'min_length' => 'Der Vorname muss mindestens zwei Zeichen lang sein',

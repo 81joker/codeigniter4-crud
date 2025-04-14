@@ -44,13 +44,9 @@
             </nav>
             
             <div class="container-fluid">
-                <?= view('partials/alerts') ?>
-
-           
-                
+                <?= view('partials/alerts') ?>   
                 <main>
                 <?=  $this->renderSection('content');?>
-
                 </main>
 
 

@@ -13,8 +13,7 @@ class PostModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'title', 'content'];
-    // protected $allowedFields    = ['user_id', 'title', 'content'];
+    protected $allowedFields    = ['user_id', 'title', 'content' , 'status' , 'image' , 'created_at' , 'updated_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -31,10 +30,12 @@ class PostModel extends Model
 
     // Validation
     protected $validationRules = [
-        'user_id' => 'required|is_not_unique[users.id]', 
-        // 'user_id' => 'permit_empty|is_natural_no_zero|exists[users,id]', 
+        'user_id' => 'permit_empty|is_not_unique[users.id]', 
         'title'   => 'required|min_length[3]|max_length[255]',
         'content' => 'required|min_length[6]|max_length[750]',
+        // 'image'   => 'permit_empty|max_size[image,1024]|is_image[image]',
+         'status'    => 'permit_empty|in_list[active,inactive]',
+
     ];
     protected $validationMessages = [
         'user_id' => [
@@ -49,8 +50,13 @@ class PostModel extends Model
             'required' => 'Der Nachname ist erforderlich',
             'min_length' => 'Der Nachname muss mindestens zwei Zeichen enthalten',
             'max_length' => 'Der Nachname darf nicht länger als 255 Zeichen sein',
-
         ],
+        'avatar' => [
+            'uploaded' => 'Bitte wählen Sie ein Avatar-Bild aus',
+            'max_size' => 'Die Avatar-Bildgröße darf 1 MB nicht überschreiten',
+            'is_image' => 'Nur Bilddateien sind erlaubt',
+            'mime_in' => 'Nur JPG-, JPEG- und PNG-Bilder sind erlaubt',
+        ]
     ];
 
     protected $skipValidation       = false;
@@ -68,7 +74,14 @@ class PostModel extends Model
     protected $afterDelete    = [];
 
 
-
+    public function getPostWithUser($id)
+    {
+        return $this->select('posts.*, users.firstname, users.lastname , users.avatar')
+                    ->join('users', 'users.id = posts.user_id')
+                    ->where('posts.id', $id)
+                    ->first();
+    }
+    
     public function user()
     {
         return $this->belongsTo(UserModel::class, 'user_id');
