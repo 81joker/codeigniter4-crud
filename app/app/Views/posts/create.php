@@ -30,6 +30,16 @@
             <textarea name="content" class="form-control" rows="4" required></textarea>
         </div>
 
+        <div class="mb-3">
+            <label class="form-label">Image</label>
+            <input type="file" name="image" class="form-control <?= session('errors.image') ? 'is-invalid' : '' ?>">
+            <?php if (session('errors.image')): ?>
+                <div class="invalid-feedback">
+                    <?= session('errors.image') ?>
+                </div>
+            <?php endif ?>
+        </div>
+
         <button type="submit" class="btn btn-primary px-4">Update</button>
     </form>
 </div>

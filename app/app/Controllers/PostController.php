@@ -6,6 +6,9 @@ use App\Models\PostModel;
 use CodeIgniter\HTTP\Request;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Helpers\FileUploadService;
+use CodeIgniter\Exceptions\RuntimeException;
+
 
 class PostController extends BaseController
 {
@@ -36,8 +39,6 @@ class PostController extends BaseController
             ->groupEnd(); 
         }
     
-        
-
         // Apply sorting
         $query = $query->orderBy($sortField, $sortDirection);
     
@@ -63,6 +64,7 @@ class PostController extends BaseController
     {
 
         $model = new PostModel();
+        $uploadService = new FileUploadService();
 
         if (!$this->validate($model->validationRules)) {
             return redirect()->back()
@@ -70,10 +72,24 @@ class PostController extends BaseController
                 ->withInput();
         }
 
+
+        $image = $this->request->getFile('image');
+        
+        try {
+            $imaePath = $uploadService->upload($image, 'images');
+        } catch (RuntimeException $e) {
+            return redirect()->back()
+                ->with('errors', ['image' => $e->getMessage()])
+                ->withInput();
+        }
+
+        $status = $this->request->getPost('status') === 'active' ? 'active' : 'inactive';
         $data = [
             'title' => $this->request->getPost('title'),
             'content'  => $this->request->getPost('content'),
-            'user_id' => $this->request->getPost('user_id')
+            'user_id' => $this->request->getPost('user_id'),
+            'status' => $status,
+            'image' => $imaePath
         ];
         
         $model->save($data);

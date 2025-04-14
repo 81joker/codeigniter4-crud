@@ -11,7 +11,7 @@ class FileUploadService
     {
         $uploadPath = FCPATH . "uploads/{$directory}/";
 
-        // Create directory if it doesn't exist
+
         if (!is_dir($uploadPath) && !mkdir($uploadPath, 0777, true) && !is_dir($uploadPath)) {
             throw new RuntimeException(sprintf('Failed to create directory: %s', $uploadPath));
         }
@@ -25,5 +25,13 @@ class FileUploadService
         }
 
         return "uploads/{$directory}/{$newName}";
+    }
+
+
+    public function deleteOldFile(?string $filePath): void
+    {
+        if ($filePath && file_exists(FCPATH . $filePath)) {
+            @unlink(FCPATH . $filePath);
+        }
     }
 }

@@ -9,22 +9,36 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        $model = new UserModel();
-        $fabricator = new \CodeIgniter\Test\Fabricator($model);
-    
-        $fabricator->create(10);
-    
-        $builder = $this->db->table('users');
+
+        $testUsers = [];
         
         for ($i = 0; $i < 10; $i++) {
-            $builder->insert([
-                'id'        => $i,
+            $testUsers[] = [
                 'firstname' => 'Firstname' . $i,
                 'lastname'  => 'Lastname' . $i,
-                'avatar' => 'person_' . $i . '.jpg',
+                'avatar'    => 'person_' . $i . '.jpg',
                 'email'     => 'user' . $i . '@example.com',
-                // 'state'     => rand(0, 1), 
-            ]);
+                'status'    => ($i % 2 === 0) ? 'active' : 'inactive',
+            ];
         }
+
+        $this->db->table('users')->insertBatch($testUsers);
+        // $model = new UserModel();
+        // $fabricator = new \CodeIgniter\Test\Fabricator($model);
+    
+        // $fabricator->create(10);
+    
+        // $builder = $this->db->table('users');
+        
+        // for ($i = 0; $i < 10; $i++) {
+        //     $builder->insert([
+        //         'id'        => $i,
+        //         'firstname' => 'Firstname' . $i,
+        //         'lastname'  => 'Lastname' . $i,
+        //         'avatar' => 'person_' . $i . '.jpg',
+        //         'email'     => 'user' . $i . '@example.com',
+        //         'status'    => ($i % 2 === 0) ? 'active' : 'inactive',
+        //     ]);
+        // }
     }
 }
