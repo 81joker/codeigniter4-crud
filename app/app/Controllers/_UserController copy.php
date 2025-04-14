@@ -6,8 +6,6 @@ use App\Models\UserModel;
 use CodeIgniter\HTTP\Request;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Helpers\FileUploadService;
-use CodeIgniter\Exceptions\RuntimeException;
 
 class UserController extends BaseController
 {
@@ -60,63 +58,62 @@ class UserController extends BaseController
     {
         return view('users/create');
     }
-
-    public function store()
-    {
-        $model = new UserModel();
-        $uploadService = new FileUploadService();
-
-        $rules = [
-            'firstname' => 'required|min_length[2]|max_length[50]',
-            'lastname'  => 'required|min_length[2]|max_length[50]',
-            'email'     => 'required|valid_email|is_unique[users.email]',
-            'avatar'    => [
-                'rules' => 'uploaded[avatar]|max_size[avatar,1024]|is_image[avatar]',
-                'errors' => [
-                    'uploaded' => 'Please select an avatar image',
-                    'is_image' => 'Only image files (jpg, png, gif) are allowed'
+// $path = $this->request->getFile('userfile')->store();
+        // $path = $this->request->getFile('userfile')->store(folderName: 'head_img/', 'user_name.jpg');
+        public function store()
+        {
+            $model = new UserModel();
+            // Validation rules
+            $rules = [
+                'firstname' => 'required|min_length[2]|max_length[50]',
+                'lastname'  => 'required|min_length[2]|max_length[50]',
+                'email'     => 'required|valid_email|is_unique[users.email]',
+                'avatar'    => [
+                    'rules' => 'uploaded[avatar]|max_size[avatar,1024]|is_image[avatar]',
+                    'errors' => [
+                        'uploaded' => 'Please select an avatar image',
+                        // 'max_size' => 'Avatar image size is too large (max 3MB)',
+                        'is_image' => 'Only image files (jpg, png, gif) are allowed'
+                    ]
                 ]
-            ]
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()
-                ->with('errors', $this->validator->getErrors())
-                ->withInput();
-        }
-
-        $avatar = $this->request->getFile('avatar');
+            ];
         
-        try {
-            $avatarPath = $uploadService->upload($avatar, 'avatars');
-        } catch (RuntimeException $e) {
-            return redirect()->back()
-                ->with('errors', ['avatar' => $e->getMessage()])
-                ->withInput();
+            if (!$this->validate($rules)) {
+                return redirect()->back()
+                    ->with('errors', $this->validator->getErrors())
+                    ->withInput();
+            }
+        
+            // Handle file upload
+            $avatar = $this->request->getFile('avatar');
+            $newName = $avatar->getRandomName();
+            if (!is_writable(ROOTPATH . 'public/uploads/avatars')) {
+                die('Upload directory is not writable!');
+            } else {
+                $avatar->move(ROOTPATH . 'public/uploads/avatars', $newName);
+            }
+            $status = $this->request->getPost('status') === 'active' ? 'active' : 'inactive';
+
+            $data = [
+                'firstname' => $this->request->getPost('firstname'),
+                'lastname'  => $this->request->getPost('lastname'),
+                'email'     => $this->request->getPost('email'),
+                'avatar'    => 'uploads/avatars/' . $newName,
+                'status'    => $status
+            ];
+        
+            if (!$model->save($data)) {
+                // If model save fails, delete the uploaded image
+                @unlink(ROOTPATH . 'public/uploads/avatars/' . $newName);
+                
+                return redirect()->back()
+                    ->with('errors', $model->errors())
+                    ->withInput();
+            }
+        
+            return redirect()->to('/users')
+                ->with('message', 'User saved successfully');
         }
-
-        $status = $this->request->getPost('status') === 'active' ? 'active' : 'inactive';
-
-        $data = [
-            'firstname' => $this->request->getPost('firstname'),
-            'lastname'  => $this->request->getPost('lastname'),
-            'email'     => $this->request->getPost('email'),
-            'avatar'    => $avatarPath,
-            'status'    => $status
-        ];
-
-        if (!$model->save($data)) {
-            // Delete the uploaded file if save fails
-            @unlink(FCPATH . $avatarPath);
-
-            return redirect()->back()
-                ->with('errors', $model->errors())
-                ->withInput();
-        }
-
-        return redirect()->to('/users')
-            ->with('message', 'User saved successfully');
-    }
     public function edit($id)
     {
         $model = new UserModel();
@@ -144,21 +141,31 @@ class UserController extends BaseController
                 ]
             ]
         ];
+        // Avatar Handle
+        // $avatar = $this->request->getFile('avatar');
+        // var_dump($avatar);
+        // $newName = $avatar->getRandomName();
+    
 
+        // if (!is_writable(ROOTPATH . 'public/uploads/avatars')) {
+        //     die('Upload directory is not writable!');
+        // } else {
+        //     $avatar->move(ROOTPATH . 'public/uploads/avatars', $newName);
+        // }
         $avatar = $this->request->getFile('avatar');
         $avatarPath = null;
-
+        
         if ($avatar && $avatar->isValid() && !$avatar->hasMoved()) {
             $newName = $avatar->getRandomName();
 
             if (!is_writable(ROOTPATH . 'public/uploads/avatars')) {
                 die('Upload directory is not writable!');
             }
-
+        
             $avatar->move(ROOTPATH . 'public/uploads/avatars', $newName);
             $avatarPath = 'uploads/avatars/' . $newName;
         }
-
+        
 
         if (!$this->validate($rules)) {
             return redirect()->back()
@@ -173,18 +180,20 @@ class UserController extends BaseController
             // 'avatar'    => 'uploads/avatars/' . $newName,
         ];
 
+
+
         if ($avatarPath) {
             $data['avatar'] = $avatarPath;
         }
 
-        $db = \Config\Database::connect();
+      $db = \Config\Database::connect();
         $db->table('users')
             ->set($data)
             ->set('updated_at', date('Y-m-d H:i:s'))
             ->where('id', $id)
             ->update();
-
-        // $model->update($id ,$data);
+    
+            // $model->update($id ,$data);
         return redirect()->to('/users')->with('success', 'User updated successfully');
     }
 
