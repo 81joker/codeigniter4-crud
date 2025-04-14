@@ -11,6 +11,7 @@ use CodeIgniter\Exceptions\RuntimeException;
 
 class UserController extends BaseController
 {
+    
     public function index()
     {
 
@@ -127,8 +128,13 @@ class UserController extends BaseController
     public function update($id = null)
     {
         $model = new UserModel();
-        $status = $this->request->getPost('status') === 'active' ? 'active' : 'inactive';
+        $uploadService = new FileUploadService();
 
+        $user = $model->find($id);
+        $oldAvatarPath = $user['avatar'] ?? null;
+
+
+        $status = $this->request->getPost('status') === 'active' ? 'active' : 'inactive';
         $rules = [
             'firstname' => 'required|min_length[2]|max_length[50]',
             'lastname'  => 'required|min_length[2]|max_length[50]',
@@ -148,17 +154,17 @@ class UserController extends BaseController
         $avatar = $this->request->getFile('avatar');
         $avatarPath = null;
 
-        if ($avatar && $avatar->isValid() && !$avatar->hasMoved()) {
-            $newName = $avatar->getRandomName();
-
-            if (!is_writable(ROOTPATH . 'public/uploads/avatars')) {
-                die('Upload directory is not writable!');
-            }
-
-            $avatar->move(ROOTPATH . 'public/uploads/avatars', $newName);
-            $avatarPath = 'uploads/avatars/' . $newName;
+        try {
+            $avatarPath = $uploadService->updateFile(
+                $avatar, 
+                'avatars',
+                $oldAvatarPath
+            );
+        } catch (RuntimeException $e) {
+            return redirect()->back()
+                ->with('errors', ['avatar' => $e->getMessage()])
+                ->withInput();
         }
-
 
         if (!$this->validate($rules)) {
             return redirect()->back()
@@ -170,7 +176,6 @@ class UserController extends BaseController
             'lastname'  => $this->request->getPost('lastname'),
             'email'     => $this->request->getPost('email'),
             'status'    => $status
-            // 'avatar'    => 'uploads/avatars/' . $newName,
         ];
 
         if ($avatarPath) {

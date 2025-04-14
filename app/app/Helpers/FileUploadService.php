@@ -27,6 +27,27 @@ class FileUploadService
         return "uploads/{$directory}/{$newName}";
     }
 
+    public static function updateFile(
+        ?UploadedFile $file,
+        string $directory,
+        ?string $oldFilePath = null
+    ): ?string {
+        if (!$file || !$file->isValid() || $file->hasMoved()) {
+            return null;
+        }
+
+        $uploadService = new FileUploadService();
+
+        try {
+            $newPath = $uploadService->upload($file, $directory);
+            
+            $uploadService->deleteOldFile($oldFilePath);
+
+            return $newPath;
+        } catch (RuntimeException $e) {
+            throw new RuntimeException('Image update failed: ' . $e->getMessage());
+        }
+    }
 
     public function deleteOldFile(?string $filePath): void
     {
