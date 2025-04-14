@@ -184,12 +184,11 @@ class UserController extends BaseController
             'firstname' => $this->request->getPost('firstname'),
             'lastname'  => $this->request->getPost('lastname'),
             'email'     => $this->request->getPost('email'),
-            'status'    => $status
+            // 'status'    => $status
             // 'avatar'    => 'uploads/avatars/' . $newName,
         ];
-        dd($data);
 
-        ];
+
 
         if ($avatarPath) {
             $data['avatar'] = $avatarPath;

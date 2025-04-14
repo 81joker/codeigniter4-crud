@@ -23,7 +23,6 @@ class UserSeeder extends Seeder
                 'lastname'  => 'Lastname' . $i,
                 'avatar' => 'person_' . $i . '.jpg',
                 'email'     => 'user' . $i . '@example.com',
-                'status'    => rand('active', 'inactive'),
                 // 'state'     => rand(0, 1), 
             ]);
         }
