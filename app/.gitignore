@@ -3,6 +3,8 @@
 #-------------------------
 
 public/uploads/avatars
+public/uploads/images
+public/uploads/posts
 
 # OS X
 .DS_Store

@@ -75,8 +75,7 @@
                     $status = $user['status'];
                     $borderClass = ($status == 'active') ? 'border-primary' : 'border-secondary';
                     ?>
-
-                    <?php  if (!    empty($user['avatar'])): ?>  
+                    <?php  if (!empty($user['avatar'])): ?>  
                     <td class="w-25 h-25"><img src="<?= base_url(esc($user['avatar'])) ?>" class="img-thumbnail rounded-circle w-25 border border-2 <?= $borderClass ?>"  alt="<?= esc($user['firstname']) ?>"></td>
                     <?php else : ?>
                     <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td>

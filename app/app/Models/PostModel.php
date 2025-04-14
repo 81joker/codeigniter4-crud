@@ -30,10 +30,11 @@ class PostModel extends Model
 
     // Validation
     protected $validationRules = [
-        'user_id' => 'required|is_not_unique[users.id]', 
+        'user_id' => 'permit_empty|is_not_unique[users.id]', 
         'title'   => 'required|min_length[3]|max_length[255]',
         'content' => 'required|min_length[6]|max_length[750]',
-        'status'    => 'permit_empty|in_list[active,inactive]',
+        // 'image'   => 'permit_empty|max_size[image,1024]|is_image[image]',
+         'status'    => 'permit_empty|in_list[active,inactive]',
 
     ];
     protected $validationMessages = [

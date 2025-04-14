@@ -17,6 +17,20 @@
             <textarea name="content" class="form-control" rows="4" required><?= $post['content'] ?></textarea>
         </div>
 
+        <div class="mb-3">
+            <label class="form-label">Image</label>
+            <input type="file" name="image" class="form-control" value="<?= $post['image'] ?>" accept="image/*">
+        </div>
+
+        <div class="mb-3 d-flex">
+            <div class="form-check">
+                <label class="form-check-label" for="flexCheckChecked">
+                    <?= ($post['status'] === 'active') ? 'Active' : 'Inactive'; ?>
+                    <input class="form-check-input" type="checkbox" name="status" value="active" id="flexCheckChecked" <?= ($post['status'] === 'active') ? 'checked' : '' ?>>
+                </label>
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary px-4">Update</button>
     </form>
 </div>

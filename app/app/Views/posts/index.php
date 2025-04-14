@@ -72,7 +72,11 @@
                 <?php foreach ($posts['posts'] as $post): ?>
                     <tr class="text-center">
                         <?php if (! empty($post['image'])): ?>
-                            <td class="w-25 h-25"><img src="<?= base_url(esc($post['image'])) ?>" class="img-thumbnail" style="width: 100px;  alt="<?= esc($post['firstname']) ?>"></td>
+                            <?php
+                                $status = $post['status'];
+                                $borderClass = ($status == 'active') ? 'border-primary' : 'border-secondary';
+                                ?>
+                            <td class="w-25 h-25"><img src="<?= base_url(esc($post['image'])) ?>" class="img-thumbnail border border-2 <?= $borderClass ?>" style="width: 100px;  alt="<?= esc($post['firstname']) ?>"></td>
                         <?php else : ?>
                             <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail" style="width: 100px; alt=" <?= esc($post['firstname']) ?>"></td>
                         <?php endif; ?>

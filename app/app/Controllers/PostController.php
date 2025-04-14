@@ -102,23 +102,70 @@ class PostController extends BaseController
         $data['post'] = $model->find($id);
         return view('posts/edit', $data);
     }
-
-    public function update($id)
+    public function update($id = null)
     {
         $model = new PostModel();
+        $uploadService = new FileUploadService();
 
-        if (!$this->validate($model->validationRules)) {
+        $user = $model->find($id);
+        $oldAvatarPath = $user['image'] ?? null;
+
+
+        $status = $this->request->getPost('status') === 'active' ? 'active' : 'inactive';
+        $rules = [
+            'title' => 'required|min_length[2]|max_length[50]',
+            'content' => 'required|min_length[6]|max_length[750]',
+            'image'    => [
+                'rules' => 'if_exist|max_size[image,1024]|is_image[image]',
+                'errors' => [
+                    'uploaded' => 'Please select an avatar image',
+                    'max_size' => 'Avatar image size is too large (max 3MB)',
+                    'is_image' => 'Only image files (jpg, png, gif) are allowed'
+                ]
+            ]
+        ];
+
+        $avatar = $this->request->getFile('image');
+        $avatarPath = null;
+
+        try {
+            $avatarPath = $uploadService->updateFile(
+                $avatar, 
+                'image',
+                $oldAvatarPath
+            );
+        } catch (RuntimeException $e) {
+            return redirect()->back()
+                ->with('errors', ['image' => $e->getMessage()])
+                ->withInput();
+        }
+
+        if (!$this->validate($rules)) {
             return redirect()->back()
                 ->with('errors', $this->validator->getErrors())
                 ->withInput();
         }
-        
-        $model->update($id, [
+        $data = [
             'title' => $this->request->getPost('title'),
-            'content' => $this->request->getPost('content')
-        ]);
+            'content'  => $this->request->getPost('content'),
+            'status'    => $status
+        ];
+
+        if ($avatarPath) {
+            $data['image'] = $avatarPath;
+        }
+
+        $db = \Config\Database::connect();
+        $db->table('posts')
+            ->set($data)
+            ->set('updated_at', date('Y-m-d H:i:s'))
+            ->where('id', $id)
+            ->update();
+
+        // $model->update($id ,$data);
         return redirect()->to('/posts')->with('success', 'Post updated successfully');
     }
+   
 
     public function delete($id)
     {

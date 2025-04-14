@@ -9,7 +9,20 @@ class FileUploadService
 {
     public function upload(UploadedFile $file, string $directory): string
     {
+
+        if (!$file->isValid() || $file->hasMoved()) {
+            throw new RuntimeException('Invalid or already moved file');
+        }
         $uploadPath = FCPATH . "uploads/{$directory}/";
+
+        // if (!is_dir($uploadPath)) {
+        //     try {
+        //         mkdir($uploadPath, 0775, true);  
+        //         chmod($uploadPath, 0775);        
+        //     } catch (\Exception $e) {
+        //         die('Error creating directory: ' . $e->getMessage());
+        //     }
+        //  }
 
 
         if (!is_dir($uploadPath) && !mkdir($uploadPath, 0777, true) && !is_dir($uploadPath)) {

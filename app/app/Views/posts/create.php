@@ -40,6 +40,15 @@
             <?php endif ?>
         </div>
 
+        <div class="mb-3 d-flex">
+            <div class="form-check">
+                <label class="form-check-label" for="flexCheckChecked">
+                    Choose your Status
+                    <input class="form-check-input" type="checkbox" name="status" value="active" id="flexCheckChecked" checked>
+                </label>
+            </div>
+        </div>
+        
         <button type="submit" class="btn btn-primary px-4">Update</button>
     </form>
 </div>
