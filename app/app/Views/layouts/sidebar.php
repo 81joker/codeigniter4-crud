@@ -32,7 +32,7 @@
                         Orders
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="bi bi-people"></i>
                         Customers
@@ -43,7 +43,7 @@
                         <i class="bi bi-graph-up"></i>
                         Reports
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="bi bi-gear"></i>
