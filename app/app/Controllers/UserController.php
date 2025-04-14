@@ -87,16 +87,6 @@ class UserController extends BaseController
             // Handle file upload
             $avatar = $this->request->getFile('avatar');
             $newName = $avatar->getRandomName();
-            // $avatar->move(ROOTPATH . 'public/uploads/avatars', $newName);
-            // if (!is_writable('/var/www/html/public/uploads/avatars')) {
-            //     die('Directory is not writable!');
-            // }
-            // $uploadPath = '/var/www/html/public/uploads/avatars/';
-
-            // // بدل move() استخدم copy()
-            // if ($avatar->isValid() && !$avatar->hasMoved()) {
-            //     $avatar->copy($uploadPath . $newName);
-            // }
             if (!is_writable(ROOTPATH . 'public/uploads/avatars')) {
                 die('Upload directory is not writable!');
             } else {

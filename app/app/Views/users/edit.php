@@ -1,12 +1,12 @@
 <?= $this->extend('layouts/app') ?>
 
-<?= $this->section('content')?>
+<?= $this->section('content') ?>
 
 <div class="container mt-5">
     <h1 class="fs-3 fw-semibold">Edit User</h1>
 
-    <form method="post" action="/users/update/<?= $user['id'] ?>" enctype="multipart/form-data"> 
-    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
+    <form method="post" action="/users/update/<?= $user['id'] ?>" enctype="multipart/form-data">
+        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
 
         <div class="mb-3">
             <label class="form-label">First Name</label>
@@ -23,13 +23,19 @@
 
         <div class="mb-3">
             <label class="form-label">Avatar</label>
-            <input type="file" name="avatar" class="form-control"  value="<?= $user['avatar'] ?>" accept="image/*">
+            <input type="file" name="avatar" class="form-control" value="<?= $user['avatar'] ?>" accept="image/*">
         </div>
 
-        <label>
-            <input type="checkbox" name="status" value="active" <?= ($user['status'] === 'active') ? 'checked' : '' ?>>
-            Active
-        </label>
+
+
+        <div class="mb-3 d-flex">
+            <div class="form-check">
+                <label class="form-check-label" for="flexCheckChecked">
+                    <?= ($user['status'] === 'active') ? 'Active' : 'Inactive'; ?>
+                    <input class="form-check-input" type="checkbox" name="status" value="active" id="flexCheckChecked" <?= ($user['status'] === 'active') ? 'checked' : '' ?>>
+                </label>
+            </div>
+        </div>
 
 
         <button type="submit" class="btn btn-primary px-4">Update</button>
