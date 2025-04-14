@@ -3,41 +3,36 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
-use App\Models\PostModel;
-use App\Models\UserModel;
 
 class PostSeeder extends Seeder
 {
     public function run()
     {
+        $userModel = new \App\Models\UserModel();
+        $postModel = new \App\Models\PostModel();
+        $faker = \Faker\Factory::create();
 
+        $users = $userModel->findAll();
 
-        $model = new PostModel();
-        $fabricator = new \CodeIgniter\Test\Fabricator($model);
-    
-        $fabricator->create(10);
-    
-        $builder = $this->db->table('posts');
-
-        $model = new UserModel();
-        $users = $model->findAll();
-        $user_id = array_column($users, 'id');
-
-        for ($i = 0; $i < 10; $i++) {
-            $random_user_id = $user_id[array_rand($user_id)];
-            if ($random_user_id == null) {
-                $random_user_id = 1;
-            }
-            $builder->insert([
-                // 'user_id'   => $random_user_id,
-                'user_id'   => 1,
-                'title'    => 'Sample Post dolor' . $i,
-                'content'  => 'Lorem ipsum dolor sit amet, 
-                consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                 consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore  ' . $i,
-                'created_at' => date('Y-m-d H:i:s'),
-                'updated_at' => date('Y-m-d H:i:s'),
-            ]);
+        if (empty($users)) {
+            echo "Keine Benutzer gefunden. Fügen Sie vor dem Versenden von Beiträgen einige Benutzer hinzu.\n";
+            return;
         }
+
+        foreach ($users as $user) {
+            for ($i = 0; $i < 5; $i++) {
+                $postModel->insert([
+                    'title' => $faker->sentence,
+                    'content' => $faker->paragraph,
+                    'user_id' => $user['id'],
+                    'status' => $faker->randomElement(['active', 'inactive']),
+                    'image' => 'uploads/image/default.jpg', 
+                    'created_at' => $faker->dateTimeThisYear->format('Y-m-d H:i:s'),
+                    'updated_at' => $faker->dateTimeThisYear->format('Y-m-d H:i:s'),
+                ]);
+            }
+        }
+
+
     }
 }

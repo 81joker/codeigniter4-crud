@@ -12,7 +12,6 @@ class TestController extends BaseController
     {
         $userModel = new UserModel();
         $users = $userModel->findAll(); 
-
         $i = 0;
         foreach ($users as $user) {
             if ($i == 0) {
@@ -32,6 +31,7 @@ class TestController extends BaseController
         $users = $userModel->findAll();
         return $this->response->setJSON($users); 
     }
+    
     public function usersXml()
     {
         $userModel = new UserModel();
