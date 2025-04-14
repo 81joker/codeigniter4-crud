@@ -31,11 +31,16 @@ class PostModel extends Model
 
     // Validation
     protected $validationRules = [
-        'user_id' => 'permit_empty|is_natural_no_zero|exists[users,id]', 
+        'user_id' => 'required|is_not_unique[users.id]', 
+        // 'user_id' => 'permit_empty|is_natural_no_zero|exists[users,id]', 
         'title'   => 'required|min_length[3]|max_length[255]',
         'content' => 'required|min_length[6]|max_length[750]',
     ];
     protected $validationMessages = [
+        'user_id' => [
+            'required'       => 'Bitte wählen Sie einen Benutzer aus.',
+            'is_not_unique'  => 'Der ausgewählte Benutzer existiert nicht.',
+        ],
         'title' => [
             'required' => 'Der Vorname ist erforderlich',
             'min_length' => 'Der Vorname muss mindestens zwei Zeichen enthalten',

@@ -55,18 +55,29 @@ class PostController extends BaseController
 
 
     public function create(){
-        return view('posts/create');
+        $users = new \App\Models\UserModel();
+        return view('posts/create', ['users' => $users->findAll()]);
     }
 
     public function store()
     {
 
         $model = new PostModel();
-        $model->save([
+
+        if (!$this->validate($model->validationRules)) {
+            return redirect()->back()
+                ->with('errors', $this->validator->getErrors())
+                ->withInput();
+        }
+
+        $data = [
             'title' => $this->request->getPost('title'),
-            'body' => $this->request->getPost('body')
-        ]);
-        return redirect()->to('/posts')->with('success', 'Post created successfully');
+            'content'  => $this->request->getPost('content'),
+            'user_id' => $this->request->getPost('user_id')
+        ];
+        
+        $model->save($data);
+        return redirect()->to('/posts')->with('success', 'Post updated successfully');
     }
 
     public function edit($id)

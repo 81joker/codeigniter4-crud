@@ -1,7 +1,6 @@
 <?= $this->extend('layouts/app') ?>
 
 <?= $this->section('content') ?>
-
 <div class="container">
     <div class="d-flex justify-content-between py-2">
         <h1 class="fs-3 fw-semibold">Posts List</h1>
