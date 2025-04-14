@@ -2,15 +2,6 @@
 
 <?= $this->section('content')?>
 
-<?php if (session()->has('errors')) : ?>
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            <?php foreach (session('errors') as $error) : ?>
-                <li><?= esc($error) ?></li>
-            <?php endforeach ?>
-        </ul>
-    </div>
-<?php endif ?>
 <div class="container mt-5">
     <h1 class="fs-3 fw-semibold">Create New  User</h1>
 
@@ -39,6 +30,13 @@
             <label class="form-label">Email</label>
             <input type="email" name="email" class="form-control"  value="<?= old('email') ?>">
         </div>
+
+
+        <!-- In your form -->
+        <label>
+            <input type="checkbox" name="status" value="active">
+            Active
+        </label>
 
         <button type="submit" class="btn btn-primary">Save</button>
     </form>

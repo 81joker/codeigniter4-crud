@@ -15,9 +15,10 @@ class CreateUserTable extends Migration
             'firstname'   => ['type' => 'VARCHAR', 'constraint' => '100'],
             'lastname'    => ['type' => 'VARCHAR', 'constraint' => '100'],
             'email'       => ['type' => 'VARCHAR', 'constraint' => '150', 'unique' => true],
-            'state'       => ['type' => 'TINYINT', 'default' => 0],
-            'created_at'  => [ 'type'    => 'TIMESTAMP','default' => new RawSql('CURRENT_TIMESTAMP')],
-            'updated_at'  => ['type'    => 'TIMESTAMP','default' => new RawSql('CURRENT_TIMESTAMP')],
+            'status' => ['type' => 'VARCHAR','constraint' => 20,'default'    => 'active','null'=> false],
+            // 'state'       => ['type' => 'TINYINT', 'default' => 0],
+            'created_at'  => ['type'    => 'TIMESTAMP', 'default' => new RawSql('CURRENT_TIMESTAMP')],
+            'updated_at'  => ['type'    => 'TIMESTAMP', 'default' => new RawSql('CURRENT_TIMESTAMP')],
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('users', true);

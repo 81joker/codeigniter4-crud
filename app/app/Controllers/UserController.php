@@ -132,11 +132,14 @@ class UserController extends BaseController
     public function update($id = null)
     {
         $model = new UserModel();
+        $status = $this->request->getPost('status') === 'active' ? 'active' : 'inactive';
 
         $rules = [
             'firstname' => 'required|min_length[2]|max_length[50]',
             'lastname'  => 'required|min_length[2]|max_length[50]',
             'email'     => "required|valid_email|is_unique[users.email,id,{$id}]",
+
+
             'avatar'    => [
                 'rules' => 'if_exist|max_size[avatar,1024]|is_image[avatar]',
                 'errors' => [
@@ -181,12 +184,18 @@ class UserController extends BaseController
             'firstname' => $this->request->getPost('firstname'),
             'lastname'  => $this->request->getPost('lastname'),
             'email'     => $this->request->getPost('email'),
+            'status'    => $status
+            // 'avatar'    => 'uploads/avatars/' . $newName,
+        ];
+        dd($data);
+
         ];
 
         if ($avatarPath) {
             $data['avatar'] = $avatarPath;
         }
-        $db = \Config\Database::connect();
+
+      $db = \Config\Database::connect();
         $db->table('users')
             ->set($data)
             ->set('updated_at', date('Y-m-d H:i:s'))
