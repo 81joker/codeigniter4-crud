@@ -2,16 +2,6 @@
 
 <?= $this->section('content')?>
 
-<?php if (session()->has('errors')) : ?>
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            <?php foreach (session('errors') as $error) : ?>
-                <li><?= esc($error) ?></li>
-            <?php endforeach ?>
-        </ul>
-    </div>
-<?php endif ?>
-
 <div class="container mt-5">
     <h1 class="fs-3 fw-semibold">Edit User</h1>
 

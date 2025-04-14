@@ -8,13 +8,6 @@
     <a href="/user/create" class="btn btn-primary mb-2">Add New User</a>
     </div>
  
-    
-    <?php if (session()->getFlashdata('success')): ?>
-        <div class="alert alert-success">
-            <?= session()->getFlashdata('success') ?>
-        </div>
-    <?php endif; ?>
-
     <div class="table-responsive bg-white p-3 rounded-2">
     <table class="table caption-top align-middle">
 
@@ -110,10 +103,9 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    </div>
     <div class="pagination">
         <?= $users['pager']->links() ?>
     </div>
+    </div>
 </div>
-
 <?= $this->endSection() ?>

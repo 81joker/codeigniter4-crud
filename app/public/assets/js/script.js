@@ -50,4 +50,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+
+    setTimeout(function () {
+        const flash = document.getElementById('flash-message');
+        if (flash) {
+            flash.classList.remove('show'); 
+            flash.classList.add('fade'); 
+            flash.style.opacity = 0;
+        }
+    }, 3000);
+
+    // Spinner 
+    document.getElementById('searchInput').addEventListener('input', function () {
+        document.getElementById('loadingSpinner').classList.remove('d-none');
+    });
+
 });

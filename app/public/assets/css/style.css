@@ -82,3 +82,33 @@ body {
         display: block;
     }
 }
+
+
+/* Pagination style  */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.pagination a, .pagination span {
+    padding: 10px 15px;
+    margin: 0 5px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid #007BFF;
+    color: #007BFF;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #007BFF;
+    color: white;
+}
+
+.pagination .active > a {
+    background-color: #007BFF;
+    color: white;
+    border: 1px solid #0056b3;
+}

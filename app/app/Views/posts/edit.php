@@ -2,16 +2,6 @@
 
 <?= $this->section('content')?>
 
-<?php if (session()->has('errors')) : ?>
-    <div class="alert alert-danger">
-        <ul class="mb-0">
-            <?php foreach (session('errors') as $error) : ?>
-                <li><?= esc($error) ?></li>
-            <?php endforeach ?>
-        </ul>
-    </div>
-<?php endif ?>
-
 <div class="container mt-5">
     <h1 class="fs-3 fw-semibold">Edit Post</h1>
 
@@ -26,8 +16,6 @@
             <label class="form-label">Content</label>
             <textarea name="content" class="form-control" rows="4" required><?= $post['content'] ?></textarea>
         </div>
-
-    
 
         <button type="submit" class="btn btn-primary px-4">Update</button>
     </form>
