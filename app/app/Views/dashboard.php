@@ -40,7 +40,7 @@
                         <?php foreach ($latestUsers as $user): ?>
                             <?php
                             $name = $user['firstname'] . ' ' . $user['lastname'];
-                            $activae = \App\Enums\UserStatus::Active->value;
+                            $activaeUser = \App\Enums\UserStatus::Active->value;
                             ?>
                             <a href="<?php echo base_url('/user/show/' . $user['id']) ?>" class="list-group-item list-group-item-action d-flex align-items-center">
                                 <div class="position-relative">
@@ -50,7 +50,7 @@
                                     <?php else: ?>
                                         <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="<?= $name ?>" style="width: 40px;">
                                     <?php endif; ?>
-                                    <?php if ($user['status'] == 'active' && $activae): ?>
+                                    <?php if ($user['status'] == 'active' && $activaeUser): ?>
                                         <span class="position-absolute  start-100 translate-middle p-1 bg-success border border-light rounded-circle" style="top: 10%;">
                                             <span class="visually-hidden">New alerts</span>
                                         </span>
@@ -80,6 +80,16 @@
                     <ul class="list-group list-group-flush">
                         <?php foreach ($latestPosts as $post): ?>
                             <a href="<?php echo base_url('/post/show/' . $post['id']) ?>" class="list-group-item list-group-item-action d-flex align-items-center">
+
+                            <?php if (! empty($post['image'])): ?>
+                            <?php
+                                $status = $post['status'];
+                                $borderClass = ($status == 'active') ? 'border-primary' : 'border-secondary';
+                            ?>
+                            <img src="<?= base_url(esc($post['image'])) ?>" class="img-thumbnail border border-2 <?= $borderClass ?>" style="width: 100px;"   />                        <?php else : ?>
+                           <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail" style="width: 100px;">
+                        <?php endif; ?>
+
                                 <div class="ps-4">
                                     <span class="fw-semibold d-flex"><?= $post['title'] ?></span>
                                     <span class="text-muted"><?= $post['content'] ?></span>

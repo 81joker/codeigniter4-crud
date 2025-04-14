@@ -106,6 +106,10 @@ body {
     background-color: #007BFF;
     color: white;
 }
+.pagination a:hover span {
+    background-color: #007BFF;
+    color: white;
+}
 
 .pagination .active > a {
     background-color: #007BFF;
