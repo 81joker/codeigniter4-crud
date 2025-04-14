@@ -1,11 +1,13 @@
-<?php if (session()->getFlashdata('success')): ?>
-    <div class="alert alert-success alert-dismissible fade show" role="alert" id="flash-message">
-        <?= session()->getFlashdata('success') ?>
-    </div>
-<?php endif; ?>
+<div class="container">
+    <?php if (session()->getFlashdata('success')): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="flash-message">
+            <?= session()->getFlashdata('success') ?>
+        </div>
+    <?php endif; ?>
 
-<?php if (session()->has('error')) : ?>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="flash-message">
-        <?= session('error') ?>
+    <?php if (session()->has('error')) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="flash-message">
+            <?= session('error') ?>
+        </div>
+    <?php endif ?>
     </div>
-<?php endif ?>

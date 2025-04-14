@@ -25,6 +25,7 @@ $routes->get('/user/delete/(:num)', 'UserController::delete/$1');
 
 // Posts 
 $routes->get('/posts', 'PostController::index');
+$routes->get('/post/show/(:num)', 'PostController::show/$1');
 $routes->get('/post/create', 'PostController::create');
 $routes->post('/post/store', 'PostController::store');
 $routes->get('/post/edit/(:num)', 'PostController::edit/$1');

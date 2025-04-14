@@ -9,9 +9,7 @@
 
 
     <div class="table-responsive bg-white p-3 rounded-2">
-        <table class="table caption-top align-middle">
-
-
+        <table class="table caption-top align-middle table-hover">
             <div class="row d-flex justify-content-between pb-3">
                 <div class="col-md-3">
                     <div>Post Manager <?= count($posts['posts']) ?></div>
@@ -73,7 +71,11 @@
                                 $status = $post['status'];
                                 $borderClass = ($status == 'active') ? 'border-primary' : 'border-secondary';
                                 ?>
-                            <td class="w-25 h-25"><img src="<?= base_url(esc($post['image'])) ?>" class="img-thumbnail border border-2 <?= $borderClass ?>" style="width: 100px;  alt="<?= esc($post['firstname']) ?>"></td>
+                            <td class="w-25 h-25">
+                            <a href="<?= base_url('post/show/' . $post['id']) ?>" >    
+                            <img src="<?= base_url(esc($post['image'])) ?>" class="img-thumbnail border border-2 <?= $borderClass ?>" style="width: 100px;  alt="<?= esc($post['firstname']) ?>">
+                            </a>
+                        </td>
                         <?php else : ?>
                             <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail" style="width: 100px; alt=" <?= esc($post['firstname']) ?>"></td>
                         <?php endif; ?>

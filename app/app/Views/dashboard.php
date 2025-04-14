@@ -41,7 +41,6 @@
                             <?php
                             $name = $user['firstname'] . ' ' . $user['lastname'];
                             $activae = \App\Enums\UserStatus::Active->value;
-                            // base_url(esc($user['avatar']))
                             ?>
                             <a href="<?php echo base_url('/user/show/' . $user['id']) ?>" class="list-group-item list-group-item-action d-flex align-items-center">
                                 <div class="position-relative">
@@ -80,7 +79,7 @@
                     <h5 class="card-title">Latest Users</h5>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($latestPosts as $post): ?>
-                            <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <a href="<?php echo base_url('/post/show/' . $post['id']) ?>" class="list-group-item list-group-item-action d-flex align-items-center">
                                 <div class="ps-4">
                                     <span class="fw-semibold d-flex"><?= $post['title'] ?></span>
                                     <span class="text-muted"><?= $post['content'] ?></span>

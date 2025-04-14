@@ -55,6 +55,17 @@ class PostController extends BaseController
     }
 
 
+
+    public function show($id)
+    {
+        $model = new PostModel();
+        // $data['post'] = $model->find($id);
+        $post = $model->getPostWithUser($id);
+        return view('posts/show', ['post' => $post]);
+
+        // return view('posts/show' , $data);
+    }
+
     public function create(){
         $users = new \App\Models\UserModel();
         return view('posts/create', ['users' => $users->findAll()]);

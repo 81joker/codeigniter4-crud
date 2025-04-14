@@ -74,7 +74,14 @@ class PostModel extends Model
     protected $afterDelete    = [];
 
 
-
+    public function getPostWithUser($id)
+    {
+        return $this->select('posts.*, users.firstname, users.lastname , users.avatar')
+                    ->join('users', 'users.id = posts.user_id')
+                    ->where('posts.id', $id)
+                    ->first();
+    }
+    
     public function user()
     {
         return $this->belongsTo(UserModel::class, 'user_id');
