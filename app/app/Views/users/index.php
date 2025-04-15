@@ -77,7 +77,7 @@
                         <?php if (!empty($user['avatar'])): ?>
                             <td class="w-25 h-25">
                                 <a href="<?= base_url('user/show/' . $user['id']) ?>">
-                                    <img src="<?= base_url(esc($user['avatar'])) ?>" class="img-thumbnail rounded-circle w-25 border border-2 <?= $borderClass ?>" alt="<?= esc($user['firstname']) ?>">
+                                    <img src="<?= base_url(esc($user['avatar'])) ?>" class="img-thumbnail rounded-circle w-md-25 border border-2 <?= $borderClass ?>" alt="<?= esc($user['firstname']) ?>">
                                 </a>
                             </td>
                         <?php else : ?>

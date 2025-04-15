@@ -4,6 +4,21 @@ body {
     overflow-x: hidden;
 }
 
+
+.w-md-25 {
+    width: auto;
+  }
+.w-md-50 {
+    width: auto;
+  }
+  @media (min-width: 768px) {
+    .w-md-25 {
+      width: 25%;
+    }
+    .w-md-50 {
+      width: 50%;
+    }
+  }
 /* Sidebar styling */
 .sidebar {
     width: 250px;
