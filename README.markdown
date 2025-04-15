@@ -30,12 +30,13 @@ php spark db:seed PostSeeder
 ```
 ## Fehlerbehebung bei Datenbankverbindungen
 
-Bei Problemen mit der MySQL-Verbindung können Sie die Datenbank-Testdatei unter „public/test_db.php“ verwenden, um Ihre Verbindung zu überprüfen.
+Wenn Sie auf MySQL-Verbindungsprobleme stoßen, können Sie die Testdatei unter `public/test_db.php` verwenden, um Ihre Verbindung zu überprüfen.
 
-Diese Testdatei versucht, eine Verbindung mit den folgenden Umgebungsvariablen herzustellen (oder mit den Standardwerten, falls diese nicht festgelegt sind):
-– Hostname: „database.default.hostname“ (Standard: „db“)
-– Benutzername: „database.default.username“ (Standard: „ci4_user“)
-– Passwort: „database.default.password“ (Standard: „ci4_password“)
-– Datenbank: „database.default.database“ (Standard: „ci4“)
+Diese Testdatei versucht, sich mit den folgenden Umgebungsvariablen zu verbinden (oder verwendet Standardwerte, falls diese nicht gesetzt sind):
+- Hostname: `database.default.hostname` (Standard: 'db')
+- Benutzername: `database.default.username` (Standard: 'ci4_user')
+- Passwort: `database.default.password` (Standard: 'ci4_password')
+- Datenbank: `database.default.database` (Standard: 'ci4')
 
-Das Testskript zeigt den Verbindungsstatus und die für die Fehlerbehebung verwendeten Parameter an.
+Das Testskript zeigt den Verbindungsstatus und die verwendeten Parameter zur Fehlersuche an.
+
