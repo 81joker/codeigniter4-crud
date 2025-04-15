@@ -39,8 +39,19 @@
   - Statusverwaltung: aktiv/inaktiv
 
 ---
+## Beschreibung
+Die Website bietet folgende Funktionen für Benutzer:
 
-##  Dashboard
+1. **Suche nach Benutzern**  
+   Benutzer können nach **Vorname**, **Nachname** und **E-Mail-Adresse** suchen.
+
+2. **Sortieren nach Spalten**  
+   Durch Klicken auf die Spaltenüberschriften **Vorname**, **Nachname** oder **E-Mail-Adresse** können die Ergebnisse in aufsteigender (ASC) oder absteigender (DESC) Reihenfolge sortiert werden.
+
+3. **Benutzerprofil anzeigen**  
+   Durch Klicken auf das **Profilbild** eines Benutzers wird die Seite zum Anzeigen des Benutzerprofils geöffnet.
+
+4.  **Dashboard**
 
 - Zeigt alle Benutzer und Beiträge auf einer Seite an
 - Benutzer & Beiträge sind nebeneinander gelistet
