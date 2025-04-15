@@ -1,3 +1,54 @@
+
+# CodeIgniter 4
+
+ **CodeIgniter 4** zur Verwaltung von Benutzern und Beiträgen – mit vollständigem CRUD, Bild-Uploads, Daten-Seeding und Beziehungen (Eins-zu-Viele: Benutzer → Beiträge). Das Dashboard zeigt alle Benutzer und Beiträge an. Ich habe die **Aktivitätsverfolgung für Benutzer und Beiträge** implementiert, die am unteren Rand der Seite angezeigt wird. Benutzer werden neben Beiträgen angezeigt, und beim Klicken auf einen von ihnen werden alle Details zum ausgewählten Element angezeigt.
+
+---
+
+##  Projektstruktur
+
+###  Benutzer (Users)
+
+- **Model:** `UserModel`
+- **Controller:** `UserController`
+- **Views:** Erstellen, Bearbeiten, Anzeigen, Auflisten
+- **Routen:** Ressourcengesteuert (`/users`)
+- **Datenbanktabelle:** `users`
+  - Felder: `firstname`, `lastname`, `email`, `avatar`, `status`
+- **Seeder:** `UserSeeder`
+- **Funktionen:**
+  - Benutzer erstellen, anzeigen, bearbeiten, löschen
+  - Suche, Sortierung und Paginierung
+  - Avatar-Upload mit Validierung
+  - Statusverwaltung: aktiv/inaktiv
+
+### Beiträge (Posts)
+
+- **Model:** `PostModel`
+- **Controller:** `PostController`
+- **Views:** Erstellen, Bearbeiten, Anzeigen, Auflisten
+- **Routen:** Ressourcengesteuert (`/posts`)
+- **Datenbanktabelle:** `posts`
+  - Felder: `title`, `content`, `status`, `user_id`, `image`
+- **Seeder:** `PostSeeder`
+- **Funktionen:**
+  - Beiträge erstellen, anzeigen, bearbeiten, löschen
+  - Beziehung zu Benutzern (Eins-zu-Viele)
+  - Bild-Upload mit Validierung
+  - Suche und Sortierung (auch nach Benutzerinformationen)
+  - Statusverwaltung: aktiv/inaktiv
+
+---
+
+##  Dashboard
+
+- Zeigt alle Benutzer und Beiträge auf einer Seite an
+- Benutzer & Beiträge sind nebeneinander gelistet
+- **Aktivitätsverlauf** wird am unteren Rand angezeigt
+- Beim Klicken auf ein Element werden vollständige Details angezeigt
+
+---
+
 ## Umgebungseinrichtung
 
 Dieses Projekt ist mit Docker containerisiert. Folgen Sie den unten stehenden Schritten, um die Anwendung einzurichten und auszuführen.
