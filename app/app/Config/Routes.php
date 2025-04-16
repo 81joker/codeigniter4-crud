@@ -1,6 +1,7 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
+use App\Controllers\AuthController;
 
 /**
  * @var RouteCollection $routes
@@ -36,5 +37,14 @@ $routes->get('/post/delete/(:num)', 'PostController::delete/$1');
 $routes->get('test', 'TestController::index');
 $routes->get('test/json', 'TestController::usersJson');
 $routes->get('test/xml', 'TestController::usersXml');
+
+// Auth 
+ $routes->match(['get','post'],'register', 'AuthController::register');
+// $routes->get('register', 'AuthController::register');
+// $routes->post('register', 'AuthController::register');
+
+$routes->get('login', 'AuthController::login');
+$routes->post('login', 'AuthController::login');
+$routes->get('logout', 'AuthController::logout');
 
 

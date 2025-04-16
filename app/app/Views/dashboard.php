@@ -46,7 +46,7 @@
                                 <div class="position-relative">
                                     <?php if ($user['avatar']): ?>
 
-                                        <img src="<?= (esc($user['avatar'])) ?>" alt="<?= $user['firstname']; ?>" class="rounded-circle" style="width: 40px;">
+                                        <img src="<?= base_url(esc($user['avatar'])) ?>" alt="<?= $user['firstname']; ?>" class="rounded-circle" style="width: 40px;">
                                     <?php else: ?>
                                         <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="<?= $name ?>" style="width: 40px;">
                                     <?php endif; ?>
