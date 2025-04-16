@@ -68,39 +68,47 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($users['users'] as $user): ?>
-                    <tr class="text-center">
-                        <?php
-                        $status = $user['status'];
-                        $borderClass = ($status == 'active') ? 'border-primary' : 'border-secondary';
-                        ?>
-                        <?php if (!empty($user['avatar'])): ?>
-                            <td class="w-25 h-25">
-                                <a href="<?= base_url('user/show/' . $user['id']) ?>">
-                                    <img src="<?= base_url(esc($user['avatar'])) ?>" class="img-thumbnail rounded-circle w-md-25 border border-2 <?= $borderClass ?>" alt="<?= esc($user['firstname']) ?>">
-                                </a>
+                <?php if ($users['users']) { ?>
+                    <?php foreach ($users['users'] as $user): ?>
+                        <tr class="text-center">
+                            <?php
+                            $status = $user['status'];
+                            $borderClass = ($status == 'active') ? 'border-primary' : 'border-secondary';
+                            ?>
+                            <?php if (!empty($user['avatar'])): ?>
+                                <td class="w-25 h-25">
+                                    <a href="<?= base_url('user/show/' . $user['id']) ?>">
+                                        <img src="<?= base_url(esc($user['avatar'])) ?>" class="img-thumbnail rounded-circle w-md-25 border border-2 <?= $borderClass ?>" alt="<?= esc($user['firstname']) ?>">
+                                    </a>
+                                </td>
+                            <?php else : ?>
+                                <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td>
+                            <?php endif; ?>
+
+                            <td><?= esc($user['firstname']) ?></td>
+                            <td><?= esc($user['lastname']) ?></td>
+                            <td><?= esc($user['email']) ?></td>
+                            <td>
+                                <div class="dropdown dropstart">
+                                    <i class="bi bi-three-dots-vertical" role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="<?= base_url('user/edit/' . $user['id']) ?>">edit</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider"><a class="dropdown-item" href="<?= base_url('user/delete/' . $user['id']) ?>">Deltee</a>
+                                        </li>
+                                    </ul>
+
+                                </div>
                             </td>
-                        <?php else : ?>
-                            <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail rounded-circle w-25" alt="<?= esc($user['firstname']) ?>"></td>
-                        <?php endif; ?>
-
-                        <td><?= esc($user['firstname']) ?></td>
-                        <td><?= esc($user['lastname']) ?></td>
-                        <td><?= esc($user['email']) ?></td>
-                        <td>
-                            <div class="dropdown dropstart">
-                                <i class="bi bi-three-dots-vertical" role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="<?= base_url('user/edit/' . $user['id']) ?>">edit</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider"><a class="dropdown-item" href="<?= base_url('user/delete/' . $user['id']) ?>">Deltee</a>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php } else { ?>
+                    <tr>
+                        <td colspan="5" class="text-center">No users found.</td>
                     </tr>
-                <?php endforeach; ?>
+                <?php } ?>
+
+
             </tbody>
         </table>
         <div class="pagination">

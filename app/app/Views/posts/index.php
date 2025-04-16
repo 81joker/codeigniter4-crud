@@ -64,40 +64,46 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($posts['posts'] as $post): ?>
-                    <tr class="text-center">
-                        <?php if (! empty($post['image'])): ?>
-                            <?php
+                <?php if ($posts['posts']) { ?>
+                    <?php foreach ($posts['posts'] as $post): ?>
+                        <tr class="text-center">
+                            <?php if (! empty($post['image'])): ?>
+                                <?php
                                 $status = $post['status'];
                                 $borderClass = ($status == 'active') ? 'border-primary' : 'border-secondary';
                                 ?>
-                            <td class="w-25 h-25">
-                            <a href="<?= base_url('post/show/' . $post['id']) ?>" >    
-                            <img src="<?= base_url(esc($post['image'])) ?>" class="img-thumbnail border border-2 <?= $borderClass ?>" style="width: 100px;  alt="<?= esc($post['firstname']) ?>">
-                            </a>
-                        </td>
-                        <?php else : ?>
-                            <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail" style="width: 100px; alt=" <?= esc($post['firstname']) ?>"></td>
-                        <?php endif; ?>
-                        <?php $name = $post['firstname'] . " " . $post['lastname']; ?>
-                        <td><?= esc($name) ?></td>
-                        <td><?= esc($post['title']) ?></td>
-                        <td><?= esc(substr($post['content'], 0, 50)) ?></td>
-                        <td><?= esc(substr($post['created_at'], 0, 50)) ?></td>
-                        <td>
-                            <div class="dropdown dropstart">
-                                <i class="bi bi-three-dots-vertical" role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="<?= base_url('post/edit/' . $post['id']) ?>">edit</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider"><a class="dropdown-item" href="<?= base_url('post/delete/' . $post['id']) ?>">Deltee</a>
-                                    </li>
-                                </ul>
+                                <td class="w-25 h-25">
+                                    <a href="<?= base_url('post/show/' . $post['id']) ?>">
+                                        <img src="<?= base_url(esc($post['image'])) ?>" class="img-thumbnail border border-2 <?= $borderClass ?>" style="width: 100px;  alt=" <?= esc($post['firstname']) ?>">
+                                    </a>
+                                </td>
+                            <?php else : ?>
+                                <td><img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="img-thumbnail" style="width: 100px; alt=" <?= esc($post['firstname']) ?>"></td>
+                            <?php endif; ?>
+                            <?php $name = $post['firstname'] . " " . $post['lastname']; ?>
+                            <td><?= esc($name) ?></td>
+                            <td><?= esc($post['title']) ?></td>
+                            <td><?= esc(substr($post['content'], 0, 50)) ?></td>
+                            <td><?= esc(substr($post['created_at'], 0, 50)) ?></td>
+                            <td>
+                                <div class="dropdown dropstart">
+                                    <i class="bi bi-three-dots-vertical" role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="<?= base_url('post/edit/' . $post['id']) ?>">edit</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider"><a class="dropdown-item" href="<?= base_url('post/delete/' . $post['id']) ?>">Deltee</a>
+                                        </li>
+                                    </ul>
 
-                            </div>
-                        </td>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php } else { ?>
+                    <tr>
+                        <td colspan="5" class="text-center">No posts found.</td>
                     </tr>
-                <?php endforeach; ?>
+                <?php } ?>
             </tbody>
         </table>
     </div>
