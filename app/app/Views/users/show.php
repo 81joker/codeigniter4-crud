@@ -22,6 +22,7 @@
                 <p class="text-muted mb-4">Vienna, CA</p>
                 <div class="d-flex justify-content-center mb-2">
             </div>
+            <a href="<?= base_url('user/edit/' . $user['id']) ?>" class="btn btn-outline-primary mt-3">Edit Profile</a>
           </div>
         </div>
       </div>

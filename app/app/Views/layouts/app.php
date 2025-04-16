@@ -39,7 +39,7 @@
                                 <?= esc($session->get('name')) ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="<?= base_url('user/show/' . $session->get('id')) ?>">Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
                                 <li>
                                     <hr class="dropdown-divider">

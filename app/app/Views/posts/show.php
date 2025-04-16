@@ -31,17 +31,18 @@
         <div class="card-body">
           <div class="row">
             <div class="col-6 d-flex justify-content-end pe-3 border-end">
-            <?php if (!empty($post['image'])): ?>
-            <img src="<?= base_url(esc($post['image'])) ?>" alt="image"
-              class="rounded mx-auto d-block img-thumbnail img-fluid w-75" >
-          <?php else : ?>
-            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar"
-              class="rounded mx-auto d-block img-thumbnail img-fluid w-75" >
-          <?php endif; ?>
+               <?php if (!empty($post['image'])): ?>
+                 <img src="<?= base_url(esc($post['image'])) ?>" alt="image"
+                   class="rounded mx-auto d-block img-thumbnail img-fluid w-75" >
+                 <?php else : ?>
+                 <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar"
+                 class="rounded mx-auto d-block img-thumbnail img-fluid w-75" >
+                <?php endif; ?>
             </div>
             <div class="col-6 ps-3 text-center">
             <h3 class="mb-3 text-capitalize"><?= esc($post['title']) ?></h3>
               <p><?= esc($post['content']) ?></p>
+              <a href="<?= base_url('post/edit/' . $post['id']) ?>" class="btn btn-outline-primary mt-3 px-4">Edit Post</a>
             </div>
           </div>
 
