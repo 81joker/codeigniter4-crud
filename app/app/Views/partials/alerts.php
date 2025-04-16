@@ -10,4 +10,4 @@
             <?= session('error') ?>
         </div>
     <?php endif ?>
-    </div>
+</div>
